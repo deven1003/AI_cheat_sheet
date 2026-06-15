@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<!--
+  AI Interview Cheat Sheet
+  Created & written by Deven Kalathiya
+  GitHub:   https://github.com/deven1003
+  LinkedIn: https://www.linkedin.com/in/deven-kalathiya/
+  © Deven Kalathiya. Please keep this attribution if you share or reuse this work.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Deven Kalathiya">
+<meta name="description" content="AI / LLM interview cheat sheet — theory, cheat sheets, and interview Q&A from foundations to advanced. Created by Deven Kalathiya.">
+<title>AI Interview Cheat Sheet by Deven Kalathiya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14122B;
+  --ink-2:#1d1a3c;
+  --ink-line:#2c2850;
+  --paper:#eef0f6;
+  --surface:#ffffff;
+  --surface-2:#f6f7fb;
+  --accent:#6d5bff;
+  --accent-soft:#ece9ff;
+  --teal:#0bbfa6;
+  --text:#191830;
+  --muted:#6a6986;
+  --muted-2:#9492ad;
+  --basic:#1ea672;
+  --basic-soft:#e2f6ee;
+  --inter:#d98a00;
+  --inter-soft:#fbeed2;
+  --adv:#d94d6a;
+  --adv-soft:#fbe4e9;
+  --cmp:#6d5bff;
+  --cmp-soft:#ece9ff;
+  --prac:#0a9f8a;
+  --prac-soft:#d6f3ee;
+  --display:'Space Grotesk',sans-serif;
+  --body:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:14px;
+  --shadow:0 1px 2px rgba(20,18,43,.04),0 8px 24px rgba(20,18,43,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{
+  font-family:var(--body);
+  background:var(--paper);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  font-size:16px;
+}
+a{color:inherit}
+
+/* ---------- LAYOUT ---------- */
+.shell{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar{
+  background:var(--ink);
+  color:#cfcde8;
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;
+  border-right:1px solid var(--ink-line);
+}
+.brand{padding:26px 24px 18px;border-bottom:1px solid var(--ink-line)}
+.brand .logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--display);font-weight:700;font-size:18px;color:#fff;letter-spacing:-.01em;
+}
+.node{
+  width:22px;height:22px;flex:0 0 22px;position:relative;
+}
+.node svg{display:block}
+.brand .tag{
+  font-family:var(--mono);font-size:11px;color:var(--muted-2);
+  margin-top:8px;letter-spacing:.04em;text-transform:uppercase;
+}
+.search-wrap{padding:16px 18px 12px}
+.search-wrap input{
+  width:100%;background:var(--ink-2);border:1px solid var(--ink-line);
+  color:#fff;border-radius:10px;padding:10px 12px 10px 34px;font-family:var(--body);font-size:13.5px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' fill='none' stroke='%239492ad' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='6.5' cy='6.5' r='4.5'/%3E%3Cpath d='M10 10l4 4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:11px center;
+}
+.search-wrap input:focus{outline:none;border-color:var(--accent)}
+.search-wrap input::placeholder{color:var(--muted-2)}
+
+.filters{display:flex;gap:6px;padding:0 18px 14px;flex-wrap:wrap}
+.chip{
+  font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+  padding:5px 9px;border-radius:20px;border:1px solid var(--ink-line);
+  background:transparent;color:var(--muted-2);cursor:pointer;transition:.15s;
+}
+.chip[data-on="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.lv-basic[data-on="true"]{background:var(--basic);border-color:var(--basic)}
+.chip.lv-inter[data-on="true"]{background:var(--inter);border-color:var(--inter)}
+.chip.lv-adv[data-on="true"]{background:var(--adv);border-color:var(--adv)}
+.chip.lv-cmp[data-on="true"]{background:var(--cmp);border-color:var(--cmp)}
+.chip.lv-prac[data-on="true"]{background:var(--prac);border-color:var(--prac)}
+
+.nav{overflow-y:auto;flex:1;padding:6px 10px 30px}
+.nav::-webkit-scrollbar{width:8px}
+.nav::-webkit-scrollbar-thumb{background:var(--ink-line);border-radius:4px}
+.nav-group{margin:14px 0 4px}
+.nav-group .gh{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted-2);padding:6px 12px;display:flex;align-items:center;gap:8px;
+}
+.nav-group .gh::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--accent)}
+.nav-group.g-basic .gh::before{background:var(--basic)}
+.nav-group.g-inter .gh::before{background:var(--inter)}
+.nav-group.g-adv .gh::before{background:var(--adv)}
+.nav-group.g-cmp .gh::before{background:var(--cmp)}
+.nav-group.g-prac .gh::before{background:var(--prac)}
+.nav a{
+  display:block;font-size:13.5px;color:#b6b3d4;padding:7px 12px 7px 26px;border-radius:8px;
+  text-decoration:none;transition:.12s;position:relative;
+}
+.nav a:hover{background:var(--ink-2);color:#fff}
+.nav a.active{background:var(--ink-2);color:#fff}
+.nav a.active::before{
+  content:"";position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)33;
+}
+.nav a.hidden,.topic.hidden{display:none}
+
+/* ---------- MAIN ---------- */
+.main{min-width:0}
+.hero{
+  background:var(--ink);color:#fff;padding:62px 8vw 70px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(circle at 1px 1px,rgba(109,91,255,.35) 1px,transparent 0);
+  background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(to bottom right,#000,transparent 70%);
+  mask-image:linear-gradient(to bottom right,#000,transparent 70%);
+}
+.hero .eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:18px;position:relative;z-index:1;
+}
+.hero h1{
+  font-family:var(--display);font-weight:700;font-size:clamp(32px,5vw,52px);line-height:1.05;
+  letter-spacing:-.02em;max-width:18ch;position:relative;z-index:1;
+}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{
+  margin-top:20px;max-width:56ch;color:#b6b3d4;font-size:16.5px;position:relative;z-index:1;
+}
+.hero .legend{display:flex;gap:18px;margin-top:28px;flex-wrap:wrap;position:relative;z-index:1}
+.hero .legend span{display:flex;align-items:center;gap:8px;font-size:13px;color:#cfcde8;font-family:var(--mono)}
+.hero .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+.content{padding:48px 8vw 100px;max-width:1080px}
+
+.group-head{margin:54px 0 8px;display:flex;align-items:baseline;gap:14px}
+.group-head:first-child{margin-top:8px}
+.group-head .num{font-family:var(--mono);font-size:13px;color:var(--muted-2)}
+.group-head h2{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:-.01em}
+.group-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--muted-2)44,transparent)}
+.group-sub{color:var(--muted);font-size:14.5px;margin-bottom:10px;max-width:60ch}
+
+/* ---------- TOPIC CARD ---------- */
+.topic{
+  background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);
+  margin:22px 0;overflow:hidden;border:1px solid #e7e8f0;scroll-margin-top:18px;
+}
+.topic > header{
+  padding:22px 26px 18px;border-bottom:1px solid #eceef4;
+  display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;
+}
+.topic .label{
+  font-family:var(--mono);font-size:11px;color:var(--muted-2);letter-spacing:.04em;
+  display:block;margin-bottom:5px;
+}
+.topic h3{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em;flex:1;min-width:200px}
+.pill{
+  font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
+  padding:4px 10px;border-radius:20px;font-weight:500;white-space:nowrap;align-self:center;
+}
+.pill.basic{background:var(--basic-soft);color:var(--basic)}
+.pill.inter{background:var(--inter-soft);color:var(--inter)}
+.pill.adv{background:var(--adv-soft);color:var(--adv)}
+.pill.cmp{background:var(--cmp-soft);color:var(--cmp)}
+.pill.prac{background:var(--prac-soft);color:var(--prac)}
+
+.topic .body{padding:8px 26px 6px}
+.section-tab{
+  display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin:22px 0 10px;font-weight:500;
+}
+.section-tab::before{content:"";width:14px;height:1.5px;background:var(--accent)}
+.theory p{margin:0 0 12px;font-size:15px;color:#33334d}
+.theory p:last-child{margin-bottom:0}
+.theory strong{color:var(--text);font-weight:600}
+.theory code,.cheat code,.qa code{
+  font-family:var(--mono);font-size:.86em;background:var(--surface-2);
+  padding:1.5px 6px;border-radius:5px;color:#4a3fb8;border:1px solid #e7e8f0;
+}
+.theory ul{margin:4px 0 14px;padding-left:0;list-style:none}
+.theory ul li{
+  font-size:15px;color:#33334d;padding:4px 0 4px 22px;position:relative;
+}
+.theory ul li::before{
+  content:"";position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:2px;
+  background:var(--accent-soft);border:1.5px solid var(--accent);
+}
+
+/* cheat sheet block */
+.cheat{
+  background:var(--ink);color:#dcdaf0;border-radius:12px;padding:18px 20px;margin:6px 0 4px;
+  font-size:13.5px;position:relative;overflow:hidden;
+}
+.cheat .ct{
+  font-family:var(--mono);font-size:10.5px;color:var(--teal);letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.cheat .ct::before{content:"$";color:var(--accent)}
+.cheat dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px}
+.cheat dt{font-family:var(--mono);font-weight:500;color:#fff;white-space:nowrap}
+.cheat dd{color:#b6b3d4}
+.cheat .row{display:flex;gap:8px;padding:3px 0;border-bottom:1px solid var(--ink-line)}
+.cheat .row:last-child{border-bottom:none}
+.cheat .k{font-family:var(--mono);color:var(--teal);min-width:130px;font-weight:500}
+.cheat .v{color:#cfcde8;flex:1}
+.cheat strong{color:#fff}
+
+/* Q&A */
+.qa details{
+  border:1px solid #e7e8f0;border-radius:10px;margin:8px 0;background:var(--surface-2);overflow:hidden;
+}
+.qa details[open]{background:var(--surface);box-shadow:var(--shadow)}
+.qa summary{
+  cursor:pointer;padding:13px 16px 13px 42px;font-weight:550;font-size:14.5px;list-style:none;
+  position:relative;color:var(--text);
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{
+  content:"Q";position:absolute;left:14px;top:12px;font-family:var(--mono);font-size:12px;font-weight:700;
+  color:var(--accent);background:var(--accent-soft);width:20px;height:20px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+}
+.qa summary::after{
+  content:"+";position:absolute;right:16px;top:11px;font-size:18px;color:var(--muted-2);transition:.2s;
+}
+.qa details[open] summary::after{transform:rotate(45deg)}
+.qa .ans{padding:2px 18px 16px 42px;font-size:14px;color:#41415c}
+.qa .ans p{margin:0 0 9px}
+.qa .ans p:last-child{margin-bottom:0}
+.qa .ans strong{color:var(--text)}
+
+/* diagram / figure */
+.figure{margin:10px 0 4px;border:1px solid #e7e8f0;border-radius:12px;background:linear-gradient(180deg,#fbfbfe,#f4f5fb);padding:18px 18px 12px;overflow:hidden}
+.figure svg{display:block;width:100%;height:auto;max-width:660px;margin:0 auto}
+.figure figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center;margin-top:12px;letter-spacing:.02em;line-height:1.5}
+.figure .dt{fill:#191830;font-family:'Space Grotesk',sans-serif;font-weight:600}
+.figure .dl{fill:#6a6986;font-family:'JetBrains Mono',monospace}
+.figure .dn{fill:#fff;font-family:'JetBrains Mono',monospace;font-weight:500}
+
+/* comparison table */
+.cmp-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0;border-radius:10px;border:1px solid #e7e8f0}
+.cmp{min-width:560px;width:100%;font-size:13.5px}
+.cmp .crow{display:grid;border-bottom:1px solid #eceef4}
+.cmp.two .crow{grid-template-columns:120px 1fr 1fr}
+.cmp.three .crow{grid-template-columns:112px 1fr 1fr 1fr}
+.cmp .crow:last-child{border-bottom:none}
+.cmp .crow > div{padding:10px 13px;border-left:1px solid #eceef4;color:#33334d}
+.cmp .crow > div:first-child{
+  border-left:none;font-family:var(--mono);font-size:10.5px;color:var(--muted);
+  background:var(--surface-2);display:flex;align-items:center;letter-spacing:.02em;
+}
+.cmp .chead > div{background:var(--ink);color:#fff;font-weight:600;font-family:var(--display);font-size:14px;border-left-color:var(--ink-line)}
+.cmp .chead > div:first-child{color:var(--teal);font-family:var(--mono);font-weight:500;font-size:11px}
+.cmp strong{color:var(--text);font-weight:600}
+
+/* algorithm catalogue grid */
+.algo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0}
+.algo .col{background:var(--surface-2);border:1px solid #e7e8f0;border-radius:10px;padding:14px 16px}
+.algo .col h5{font-family:var(--display);font-size:14px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.algo .col h5 .d{width:9px;height:9px;border-radius:2px;display:inline-block}
+.algo .col .sub{font-size:11.5px;color:var(--muted);font-family:var(--mono);margin-bottom:10px}
+.algo .col ul{list-style:none;margin:0}
+.algo .col li{font-size:13px;padding:4px 0 4px 16px;position:relative;color:#33334d}
+.algo .col li::before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.algo .col li b{color:var(--text);font-weight:600}
+
+/* field notes / company panel */
+.fieldnote{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0}
+.fieldnote .fn{border:1px solid #e7e8f0;border-radius:10px;padding:15px 17px;background:var(--surface-2)}
+.fieldnote .fn .ft{font-family:var(--display);font-weight:600;font-size:14.5px;margin-bottom:8px}
+.fieldnote .fn .ft span{font-family:var(--mono);font-size:10px;color:#fff;background:var(--prac);padding:2px 7px;border-radius:20px;margin-right:8px;vertical-align:middle}
+.fieldnote .fn ul{list-style:none;margin:0}
+.fieldnote .fn li{font-size:13px;padding:3px 0 3px 16px;position:relative;color:#33334d}
+.fieldnote .fn li::before{content:"▸";position:absolute;left:0;color:var(--prac)}
+.callout{
+  background:var(--accent-soft);border:1px solid #d8d2ff;border-radius:10px;padding:13px 16px;
+  font-size:13.5px;color:#3a338a;margin:10px 0;
+}
+.callout b{color:var(--cmp)}
+
+.no-results{
+  display:none;text-align:center;padding:60px 20px;color:var(--muted);
+}
+.no-results.show{display:block}
+.no-results .mono{font-family:var(--mono);font-size:13px;color:var(--accent)}
+
+.footer{
+  padding:36px 8vw;border-top:1px solid #e0e2ec;color:var(--muted);font-size:13px;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.footer .mono{font-family:var(--mono)}
+.footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:.15s}
+.footer a:hover{border-bottom-color:var(--accent)}
+.author{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.author .by{font-family:var(--display);font-weight:600;color:var(--text);font-size:14px}
+.author .by span{color:var(--muted);font-weight:400;font-family:var(--body);font-size:12.5px;margin-right:6px}
+.author .links{display:flex;gap:8px}
+.author .links a{
+  display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;
+  padding:5px 11px;border:1px solid #d8d2ff;border-radius:20px;color:var(--accent);
+  background:var(--accent-soft);border-bottom:1px solid #d8d2ff;
+}
+.author .links a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.author .links svg{display:block}
+/* sidebar author */
+.brand .author-tag{
+  margin-top:12px;display:flex;align-items:center;gap:8px;
+}
+.brand .author-tag a{
+  display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;
+  background:var(--ink-2);border:1px solid var(--ink-line);color:#b6b3d4;transition:.15s;
+}
+.brand .author-tag a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.brand .author-tag .nm{font-family:var(--mono);font-size:11px;color:#cfcde8}
+/* hero byline */
+.hero .byline{
+  position:relative;z-index:1;margin-top:24px;font-family:var(--mono);font-size:12.5px;color:#9b98c4;
+}
+.hero .byline b{color:#fff;font-weight:500}
+.hero .byline a{color:var(--teal);text-decoration:none;border-bottom:1px solid transparent}
+.hero .byline a:hover{border-bottom-color:var(--teal)}
+
+.mobile-bar{display:none}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:880px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;width:280px;z-index:50;transform:translateX(-100%);transition:.25s}
+  .sidebar.open{transform:none}
+  .mobile-bar{
+    display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:40;
+    background:var(--ink);color:#fff;padding:12px 16px;
+  }
+  .mobile-bar button{background:var(--ink-2);border:1px solid var(--ink-line);color:#fff;border-radius:8px;padding:7px 11px;font-family:var(--mono);font-size:12px}
+  .mobile-bar .mb-logo{font-family:var(--display);font-weight:700;font-size:15px}
+  .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:45}
+  .scrim.show{display:block}
+  .hero{padding:44px 22px 50px}
+  .content{padding:30px 18px 80px}
+  .topic > header,.topic .body{padding-left:18px;padding-right:18px}
+  .cheat dl{grid-template-columns:1fr}
+  .cheat dt{margin-top:6px}
+  .algo,.fieldnote{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <button id="mb-toggle">☰ Menu</button>
+  <span class="mb-logo">AI Cheat Sheet</span>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo">
+        <span class="node">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <circle cx="4" cy="6" r="2.4" fill="#6d5bff"/>
+            <circle cx="4" cy="16" r="2.4" fill="#0bbfa6"/>
+            <circle cx="18" cy="11" r="2.4" fill="#fff"/>
+            <path d="M6 6.6L16 10.4M6 15.4L16 11.6" stroke="#4a4773" stroke-width="1.3"/>
+          </svg>
+        </span>
+        AI Cheat Sheet
+      </div>
+      <div class="tag">interview prep · foundations → advanced</div>
+      <div class="author-tag">
+        <span class="nm">by Deven Kalathiya</span>
+        <a href="https://github.com/deven1003" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/deven-kalathiya/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.63 0H2.37A2.34 2.34 0 000 2.31v11.38A2.34 2.34 0 002.37 16h11.26A2.34 2.34 0 0016 13.69V2.31A2.34 2.34 0 0013.63 0zM4.86 13.12H2.9V6.04h1.96v7.08zM3.88 5.16a1.14 1.14 0 110-2.28 1.14 1.14 0 010 2.28zm9.24 7.96h-1.96V9.5c0-.84-.02-1.93-1.18-1.93-1.18 0-1.36.92-1.36 1.87v3.68H6.66V6.04h1.88v.97h.03c.26-.5.9-1.02 1.86-1.02 1.99 0 2.36 1.31 2.36 3.01v4.12z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="Search topics, terms, Q&amp;A…" autocomplete="off">
+    </div>
+    <div class="filters" id="filters">
+      <button class="chip lv-all" data-lv="all" data-on="true">All</button>
+      <button class="chip lv-basic" data-lv="basic" data-on="false">Basic</button>
+      <button class="chip lv-inter" data-lv="inter" data-on="false">Intermediate</button>
+      <button class="chip lv-adv" data-lv="adv" data-on="false">Advanced</button>
+      <button class="chip lv-cmp" data-lv="cmp" data-on="false">vs</button>
+      <button class="chip lv-prac" data-lv="prac" data-on="false">Practical</button>
+    </div>
+
+    <nav class="nav" id="nav"><!-- built by JS --></nav>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <header class="hero">
+      <div class="eyebrow">// the complete interview reference</div>
+      <h1>Everything you need to talk about <em>AI</em>, from first principles to agents.</h1>
+      <p>Every topic laid out three ways: the <strong style="color:#fff">theory</strong> explained plainly, a <strong style="color:#fff">cheat sheet</strong> for last-minute review, and the <strong style="color:#fff">interview questions</strong> you'll actually be asked — plus side-by-side "X vs Y" breakdowns, real on-the-job scenarios, and a look at what top companies actually test. Start at the top if you're new; jump anywhere if you're not.</p>
+      <div class="legend">
+        <span><i style="background:#1ea672"></i>Basic — foundations</span>
+        <span><i style="background:#d98a00"></i>Intermediate — core concepts</span>
+        <span><i style="background:#d94d6a"></i>Advanced — systems & frontier</span>
+        <span><i style="background:#6d5bff"></i>vs — side-by-side comparisons</span>
+        <span><i style="background:#0a9f8a"></i>Practical — on the job</span>
+      </div>
+      <div class="byline">Compiled &amp; written by <b>Deven Kalathiya</b> · <a href="https://github.com/deven1003" target="_blank" rel="noopener">github.com/deven1003</a> · <a href="https://www.linkedin.com/in/deven-kalathiya/" target="_blank" rel="noopener">linkedin.com/in/deven-kalathiya</a></div>
+    </header>
+
+    <div class="content" id="content">
+<!-- ================= FOUNDATIONS ================= -->
+<div class="group-head"><span class="num">01</span><h2>Foundations</h2><span class="line"></span></div>
+<p class="group-sub">The vocabulary every interview opens with. Get these crisp and the rest of the conversation flows.</p>
+
+<!-- TOPIC: AI vs ML vs DL -->
+<article class="topic" id="ai-ml-dl" data-lv="basic" data-keys="ai ml dl deep learning generative artificial intelligence machine learning subset narrow agi">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-01 · the umbrella terms</span>
+      <h3>AI vs. ML vs. Deep Learning vs. Gen AI</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>These four words are nested circles, not synonyms. <strong>Artificial Intelligence (AI)</strong> is the broadest goal: any technique that makes a machine behave in a way we'd call "intelligent" — including old-school rule-based systems with no learning at all.</p>
+      <p><strong>Machine Learning (ML)</strong> is a subset of AI where the system <em>learns patterns from data</em> instead of following hand-written rules. <strong>Deep Learning (DL)</strong> is a subset of ML that uses many-layered neural networks, which is what made modern image and language systems work. <strong>Generative AI</strong> is a use-case of deep learning: models that <em>produce</em> new content (text, images, audio, code) rather than just classifying or predicting a number.</p>
+      <ul>
+        <li><strong>AI</strong> ⊃ <strong>ML</strong> ⊃ <strong>Deep Learning</strong> ⊃ (large) <strong>Generative models / LLMs</strong>.</li>
+        <li>A spam filter using if-rules is AI but not ML. A spam filter that learns from examples is ML.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nested circles showing AI contains ML contains Deep Learning contains Generative AI">
+  <circle cx="160" cy="150" r="138" fill="#eef0f6" stroke="#b9bce0"/>
+  <circle cx="160" cy="150" r="104" fill="#ddd9fb" stroke="#9b91ee"/>
+  <circle cx="160" cy="150" r="70" fill="#b3a6f7" stroke="#6d5bff"/>
+  <circle cx="160" cy="150" r="37" fill="#6d5bff" stroke="#4a3fb8"/>
+  <text class="dt" x="160" y="38" text-anchor="middle" font-size="15">AI</text>
+  <text class="dt" x="160" y="72" text-anchor="middle" font-size="13">ML</text>
+  <text class="dt" x="160" y="104" text-anchor="middle" font-size="12" fill="#241d4a">DL</text>
+  <text x="160" y="155" text-anchor="middle" font-size="10" fill="#fff" font-family="'JetBrains Mono',monospace">GenAI</text>
+  <g font-size="12.5">
+    <rect x="360" y="58" width="15" height="15" rx="3" fill="#eef0f6" stroke="#b9bce0"/><text class="dt" x="386" y="70" font-size="13">AI</text><text class="dl" x="424" y="70">any "smart" behaviour</text>
+    <rect x="360" y="96" width="15" height="15" rx="3" fill="#ddd9fb" stroke="#9b91ee"/><text class="dt" x="386" y="108" font-size="13">ML</text><text class="dl" x="424" y="108">learns from data</text>
+    <rect x="360" y="134" width="15" height="15" rx="3" fill="#b3a6f7" stroke="#6d5bff"/><text class="dt" x="386" y="146" font-size="13">DL</text><text class="dl" x="424" y="146">many-layer neural nets</text>
+    <rect x="360" y="172" width="15" height="15" rx="3" fill="#6d5bff"/><text class="dt" x="386" y="184" font-size="13">GenAI</text><text class="dl" x="446" y="184">creates new content</text>
+  </g>
+</svg>
+      <figcaption>Each term is nested inside the broader one — LLMs sit at the very centre.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">AI</span><span class="v">Any "smart" behaviour — rules <em>or</em> learning. The widest term.</span></div>
+      <div class="row"><span class="k">ML</span><span class="v">Learns patterns from data. Needs examples, not rules.</span></div>
+      <div class="row"><span class="k">Deep Learning</span><span class="v">ML with multi-layer neural nets. Powers vision & language.</span></div>
+      <div class="row"><span class="k">Generative AI</span><span class="v">DL that creates new content. LLMs are the text kind.</span></div>
+      <div class="row"><span class="k">Narrow vs AGI</span><span class="v">Today's AI is narrow (one task). AGI = human-level across tasks; not here yet.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Is every AI system a machine learning system?</summary><div class="ans"><p>No. <strong>ML is a subset of AI.</strong> A purely rule-based expert system — like a thermostat or a hand-coded chess engine — is AI but uses no learning. ML specifically means the behaviour is <em>derived from data</em>, not authored by a human as explicit rules.</p></div></details>
+      <details><summary>Why did deep learning take off only in the 2010s?</summary><div class="ans"><p>The algorithms (neural nets, backprop) existed for decades. What changed were three enablers: <strong>large labelled datasets</strong> (e.g. ImageNet), <strong>GPU compute</strong> that made training feasible, and <strong>architectural/optimization advances</strong> (ReLU, better initialization, later the Transformer). When all three lined up, deep nets started beating hand-engineered approaches.</p></div></details>
+      <details><summary>Where do LLMs sit in this hierarchy?</summary><div class="ans"><p>An LLM is a <strong>deep learning model</strong> (specifically a Transformer) used for <strong>generative AI</strong> over text. So it sits at the innermost circle: AI → ML → Deep Learning → Generative → LLM.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- TOPIC: What is a model -->
+<article class="topic" id="model" data-lv="basic" data-keys="model weights parameters function checkpoint trained file inference architecture">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-02 · the core object</span>
+      <h3>What is a "model"?</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>A <strong>model</strong> is a mathematical function that maps inputs to outputs, whose behaviour is determined by a large set of numbers called <strong>parameters</strong> (or weights). You can think of it as <code>output = f(input, parameters)</code>.</p>
+      <p>Two things define a model: its <strong>architecture</strong> (the shape of the function — how many layers, how they connect, e.g. a Transformer) and its <strong>learned parameters</strong> (the specific numbers found during training). The architecture is the empty recipe; the parameters are what fills it after the model has "eaten" data. A saved set of parameters at a point in time is a <strong>checkpoint</strong>.</p>
+      <ul>
+        <li>"GPT-style 7B model" = a Transformer architecture with 7 billion tuned parameters.</li>
+        <li>Same architecture + different training data = a different model.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A model maps input to output using learned parameters">
+  <defs><marker id="ahm" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a88a8"/></marker></defs>
+  <rect x="255" y="78" width="150" height="74" rx="12" fill="#14122B"/>
+  <text x="330" y="112" text-anchor="middle" font-size="20" fill="#fff" font-family="'Space Grotesk',sans-serif" font-weight="600">f(&#952;)</text>
+  <text x="330" y="134" text-anchor="middle" font-size="10" fill="#9b91ee" font-family="'JetBrains Mono',monospace">the model</text>
+  <rect x="285" y="20" width="90" height="32" rx="7" fill="#ece9ff" stroke="#6d5bff"/>
+  <text x="330" y="40" text-anchor="middle" font-size="11.5" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">&#952; parameters</text>
+  <line x1="330" y1="52" x2="330" y2="76" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahm)"/>
+  <text class="dl" x="60" y="110" font-size="13">input</text>
+  <line x1="110" y1="115" x2="250" y2="115" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahm)"/>
+  <line x1="406" y1="115" x2="548" y2="115" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahm)"/>
+  <text class="dl" x="556" y="110" font-size="13">output</text>
+</svg>
+      <figcaption>The architecture is the empty function f; the learned parameters &#952; are what make it behave.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Model</span><span class="v">A function: input → output, shaped by learned parameters.</span></div>
+      <div class="row"><span class="k">Architecture</span><span class="v">The blueprint (layers, connections). E.g. Transformer, CNN.</span></div>
+      <div class="row"><span class="k">Parameters / weights</span><span class="v">The numbers learned from data. "7B" = 7 billion of them.</span></div>
+      <div class="row"><span class="k">Checkpoint</span><span class="v">A saved snapshot of weights you can load later.</span></div>
+      <div class="row"><span class="k">Size ≠ skill</span><span class="v">More parameters often helps, but data + training quality matter as much.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>What's the difference between architecture and parameters?</summary><div class="ans"><p>The <strong>architecture</strong> is the fixed structure you design before training — the number and type of layers and how data flows through them. The <strong>parameters</strong> are the adjustable numbers inside that structure, set automatically during training. Two models can share an architecture but have completely different parameters because they saw different data.</p></div></details>
+      <details><summary>Does a bigger model (more parameters) always mean a better model?</summary><div class="ans"><p>Not automatically. Scale tends to help, but performance depends on <strong>data quality and quantity, training compute, and how well the model is aligned/fine-tuned</strong>. A smaller model trained on better data with better technique can beat a larger one — and it's cheaper to run.</p></div></details>
+      <details><summary>What does "loading a model" actually mean?</summary><div class="ans"><p>It means reading the saved <strong>parameter values (the checkpoint)</strong> into memory and reconstructing the architecture so you can run inputs through them. The "model file" you download is essentially a big array of numbers plus a description of the architecture.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- TOPIC: Tokens -->
+<article class="topic" id="tokens" data-lv="basic" data-keys="token tokenization tokenizer subword bpe vocab context window billing pricing characters words">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-03 · how text becomes numbers</span>
+      <h3>Tokens &amp; Tokenization</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>Models don't read letters or words — they read <strong>tokens</strong>, which are chunks of text mapped to integer IDs. A token is usually a <em>subword</em>: common words may be one token, while rare or long words split into several. Roughly, <strong>1 token ≈ 4 characters ≈ ¾ of an English word</strong>.</p>
+      <p>The <strong>tokenizer</strong> is the component that splits text into these chunks (commonly with an algorithm like Byte-Pair Encoding). The full set of possible tokens is the model's <strong>vocabulary</strong>. Tokens matter for three practical reasons: they define the <strong>context window</strong> limit, they drive <strong>API pricing</strong> (you pay per token in and out), and they affect <strong>latency</strong> (longer outputs take longer because tokens are generated one at a time).</p>
+      <ul>
+        <li>"cat" → 1 token. "antidisestablishmentarianism" → several tokens.</li>
+        <li>Whitespace and punctuation count too; non-English text often uses more tokens per word.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Text split into subword tokens with integer IDs">
+  <defs><marker id="aht" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a88a8"/></marker></defs>
+  <text x="330" y="40" text-anchor="middle" font-size="17" fill="#191830" font-family="'Space Grotesk',sans-serif" font-weight="600">"Tokenization is fun"</text>
+  <line x1="330" y1="52" x2="330" y2="80" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#aht)"/>
+  <text x="398" y="72" font-size="10.5" fill="#0a9f8a" font-family="'JetBrains Mono',monospace">tokenizer</text>
+  <g font-family="'JetBrains Mono',monospace" font-size="12.5">
+    <rect x="95"  y="95" width="105" height="38" rx="8" fill="#ece9ff" stroke="#6d5bff"/><text x="147" y="119" text-anchor="middle" fill="#4a3fb8">Token</text>
+    <rect x="210" y="95" width="105" height="38" rx="8" fill="#ece9ff" stroke="#6d5bff"/><text x="262" y="119" text-anchor="middle" fill="#4a3fb8">ization</text>
+    <rect x="325" y="95" width="70"  height="38" rx="8" fill="#ece9ff" stroke="#6d5bff"/><text x="360" y="119" text-anchor="middle" fill="#4a3fb8">&#160;is</text>
+    <rect x="405" y="95" width="80"  height="38" rx="8" fill="#ece9ff" stroke="#6d5bff"/><text x="445" y="119" text-anchor="middle" fill="#4a3fb8">&#160;fun</text>
+    <text class="dl" x="147" y="156" text-anchor="middle">30642</text>
+    <text class="dl" x="262" y="156" text-anchor="middle">1634</text>
+    <text class="dl" x="360" y="156" text-anchor="middle">318</text>
+    <text class="dl" x="445" y="156" text-anchor="middle">1257</text>
+  </g>
+  <text class="dl" x="330" y="184" text-anchor="middle" font-size="11">4 tokens &#183; each maps to an integer ID (illustrative)</text>
+</svg>
+      <figcaption>One word can split into several tokens; each becomes an integer the model reads.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Token</span><span class="v">A subword chunk the model actually processes (an integer ID).</span></div>
+      <div class="row"><span class="k">Rule of thumb</span><span class="v">~4 chars / token, ~750 words ≈ 1,000 tokens (English).</span></div>
+      <div class="row"><span class="k">Tokenizer</span><span class="v">Splits text → tokens. Often BPE. Maps to a fixed vocabulary.</span></div>
+      <div class="row"><span class="k">Why it matters</span><span class="v">Context limits, billing, and latency are all counted in tokens.</span></div>
+      <div class="row"><span class="k">Gotcha</span><span class="v">Other languages, code, and rare words cost more tokens per word.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Why not just feed the model raw words or characters?</summary><div class="ans"><p><strong>Words</strong> give a huge, open-ended vocabulary (every typo or new word is unknown). <strong>Characters</strong> make sequences very long and slow. <strong>Subword tokens</strong> are the sweet spot: a manageable vocabulary that can still represent any word by composing pieces, handling rare words and typos gracefully.</p></div></details>
+      <details><summary>If a model has a 128k context window, what does that mean?</summary><div class="ans"><p>It can attend to up to <strong>128,000 tokens at once</strong> — that's the combined budget for your prompt <em>plus</em> the generated output. Exceed it and earlier tokens must be dropped or summarized. It's a token count, not a character or word count.</p></div></details>
+      <details><summary>You're billed $X per 1M tokens — how do input and output differ?</summary><div class="ans"><p>Providers usually charge <strong>separately for input (prompt) tokens and output (completion) tokens</strong>, and output is typically more expensive because it's generated step by step. Total cost ≈ (input tokens × input rate) + (output tokens × output rate).</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- TOPIC: Platform vs Model vs Agent -->
+<article class="topic" id="platform-agent" data-lv="basic" data-keys="platform model agent difference api app tool autonomy chatbot orchestration wrapper assistant">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-04 · the one people confuse</span>
+      <h3>Model vs. Platform vs. Agent</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>These three sit at different layers of the stack, which is exactly why they get muddled.</p>
+      <p>A <strong>model</strong> is the raw brain — the trained function that turns an input into an output. On its own it does nothing until something feeds it text. A <strong>platform</strong> is the surrounding product and infrastructure that <em>delivers</em> the model: the API, the chat interface, authentication, rate limits, billing, safety filters, storage. The platform is how you actually <em>reach</em> the model.</p>
+      <p>An <strong>agent</strong> is a system built <em>on top of</em> a model that can <strong>take actions in a loop to reach a goal</strong>. Instead of answering once, an agent can decide to call tools (search, run code, hit an API), observe the result, and decide its next step — repeating until the task is done. The model is the agent's reasoning engine; the agent adds memory, tools, and a control loop.</p>
+      <ul>
+        <li><strong>Model</strong> = the engine. <strong>Platform</strong> = the car and the dealership. <strong>Agent</strong> = a self-driving system that uses the engine to get somewhere.</li>
+        <li>A plain chatbot maps one input to one output. An agent plans, acts, observes, and iterates.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three layers: model, platform, agent">
+  <defs><marker id="ahp" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a88a8"/></marker></defs>
+  <rect x="170" y="196" width="320" height="56" rx="12" fill="#14122B"/>
+  <text x="330" y="220" text-anchor="middle" font-size="14" fill="#fff" font-family="'Space Grotesk',sans-serif" font-weight="600">MODEL</text>
+  <text x="330" y="238" text-anchor="middle" font-size="10.5" fill="#9b91ee" font-family="'JetBrains Mono',monospace">the brain &#183; input &#8594; output</text>
+  <rect x="130" y="112" width="400" height="56" rx="12" fill="#ece9ff" stroke="#6d5bff"/>
+  <text x="330" y="136" text-anchor="middle" font-size="14" fill="#4a3fb8" font-family="'Space Grotesk',sans-serif" font-weight="600">PLATFORM</text>
+  <text x="330" y="154" text-anchor="middle" font-size="10.5" fill="#6d5bff" font-family="'JetBrains Mono',monospace">API &#183; UI &#183; auth &#183; billing &#183; safety</text>
+  <rect x="90" y="28" width="480" height="56" rx="12" fill="#d6f3ee" stroke="#0a9f8a"/>
+  <text x="330" y="52" text-anchor="middle" font-size="14" fill="#0a7a6a" font-family="'Space Grotesk',sans-serif" font-weight="600">AGENT</text>
+  <text x="330" y="70" text-anchor="middle" font-size="10.5" fill="#0a9f8a" font-family="'JetBrains Mono',monospace">plan &#8594; act &#183; tools &#8594; observe &#8594; repeat</text>
+  <line x1="330" y1="196" x2="330" y2="170" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahp)"/>
+  <line x1="330" y1="112" x2="330" y2="86" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahp)"/>
+  <text class="dl" x="345" y="186" font-size="10">serves</text>
+  <text class="dl" x="345" y="102" font-size="10">built on</text>
+</svg>
+      <figcaption>Same stack, three layers: the model thinks, the platform serves it, the agent acts in a loop.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Model</span><span class="v">The trained function (the "brain"). Input → output, no actions.</span></div>
+      <div class="row"><span class="k">Platform</span><span class="v">Delivery layer: API, UI, auth, billing, safety. How you access the model.</span></div>
+      <div class="row"><span class="k">Agent</span><span class="v">Goal-driven loop on top of a model: plans → uses tools → observes → repeats.</span></div>
+      <div class="row"><span class="k">Key line</span><span class="v">Model thinks · platform serves · agent acts.</span></div>
+      <div class="row"><span class="k">Autonomy</span><span class="v">Agents have it; bare models and platforms don't.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>What's the single clearest difference between a model and an agent?</summary><div class="ans"><p><strong>Autonomy and looping.</strong> A model produces one output for one input and stops. An agent wraps the model in a control loop: it can decide to take an <strong>action</strong> (use a tool, call an API), <strong>observe</strong> the outcome, and choose its next step toward a goal — running multiple model calls without a human in between.</p></div></details>
+      <details><summary>Is ChatGPT a model, a platform, or an agent?</summary><div class="ans"><p>The <strong>product</strong> is a platform (UI, accounts, history, safety) that serves an underlying <strong>model</strong> (e.g. a GPT model). When it browses the web or runs code on its own to complete a multi-step task, it's behaving as an <strong>agent</strong>. The terms describe layers, so one product can involve all three.</p></div></details>
+      <details><summary>Why is "agent" considered harder to build reliably than a chatbot?</summary><div class="ans"><p>Because errors <strong>compound across steps</strong>. A single wrong answer is one mistake; in an agent, a wrong decision early can send the whole loop off course. Agents also need tool integration, memory, guardrails, and stopping conditions — plus the model has to reliably decide <em>when</em> to act and <em>when</em> it's finished.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- TOPIC: Training vs Inference -->
+<article class="topic" id="train-infer" data-lv="basic" data-keys="training inference learning prediction backpropagation gradient forward pass cost gpu serving">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-05 · the two phases</span>
+      <h3>Training vs. Inference</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>A model's life has two phases. <strong>Training</strong> is the learning phase: the model sees data, makes predictions, measures how wrong it is (the <strong>loss</strong>), and adjusts its parameters to be less wrong next time — repeated billions of times. This is expensive, slow, and done once (or occasionally).</p>
+      <p><strong>Inference</strong> is the using phase: the parameters are now frozen, and you simply run new inputs forward through the model to get outputs. Every time you send a prompt and get an answer, that's inference. Training writes the weights; inference reads them.</p>
+      <ul>
+        <li>Training = adjust parameters (uses backpropagation + gradient descent). Costly, occasional.</li>
+        <li>Inference = forward pass only, weights frozen. Cheaper per run, but you do it constantly.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Training loop versus inference forward pass">
+  <defs><marker id="ahti" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a88a8"/></marker></defs>
+  <text x="165" y="28" text-anchor="middle" font-size="13" fill="#d98a00" font-family="'JetBrains Mono',monospace">TRAINING</text>
+  <text x="495" y="28" text-anchor="middle" font-size="13" fill="#0a9f8a" font-family="'JetBrains Mono',monospace">INFERENCE</text>
+  <line x1="330" y1="50" x2="330" y2="210" stroke="#e0e2ec" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- training -->
+  <rect x="40" y="70" width="78" height="40" rx="8" fill="#fbeed2" stroke="#d98a00"/><text x="79" y="95" text-anchor="middle" font-size="11.5" fill="#9a6200" font-family="'JetBrains Mono',monospace">data</text>
+  <rect x="135" y="70" width="78" height="40" rx="8" fill="#14122B"/><text x="174" y="95" text-anchor="middle" font-size="11.5" fill="#fff" font-family="'JetBrains Mono',monospace">model</text>
+  <rect x="230" y="70" width="70" height="40" rx="8" fill="#fbeed2" stroke="#d98a00"/><text x="265" y="95" text-anchor="middle" font-size="11.5" fill="#9a6200" font-family="'JetBrains Mono',monospace">loss</text>
+  <line x1="118" y1="90" x2="133" y2="90" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahti)"/>
+  <line x1="213" y1="90" x2="228" y2="90" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahti)"/>
+  <path d="M265 110 C265 165, 174 165, 174 112" fill="none" stroke="#d98a00" stroke-width="1.8" marker-end="url(#ahti)"/>
+  <text class="dl" x="219" y="185" text-anchor="middle" font-size="10.5" fill="#9a6200">update weights (backprop)</text>
+  <!-- inference -->
+  <text class="dl" x="360" y="95" font-size="12">input</text>
+  <rect x="430" y="70" width="92" height="40" rx="8" fill="#14122B"/><text x="476" y="90" text-anchor="middle" font-size="11" fill="#fff" font-family="'JetBrains Mono',monospace">model</text><text x="476" y="103" text-anchor="middle" font-size="9" fill="#0bbfa6" font-family="'JetBrains Mono',monospace">frozen</text>
+  <text class="dl" x="560" y="95" font-size="12">output</text>
+  <line x1="402" y1="90" x2="428" y2="90" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahti)"/>
+  <line x1="522" y1="90" x2="548" y2="90" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahti)"/>
+  <text class="dl" x="476" y="185" text-anchor="middle" font-size="10.5" fill="#0a9f8a">forward pass only</text>
+</svg>
+      <figcaption>Training adjusts the weights in a loop; inference just runs inputs forward through frozen weights.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Training</span><span class="v">Learn weights from data. Forward + backward pass. Expensive, one-time-ish.</span></div>
+      <div class="row"><span class="k">Inference</span><span class="v">Use frozen weights on new input. Forward pass only. Ongoing cost.</span></div>
+      <div class="row"><span class="k">Loss</span><span class="v">A number measuring how wrong a prediction is; training minimizes it.</span></div>
+      <div class="row"><span class="k">Backprop</span><span class="v">Algorithm that computes how to nudge each weight to cut the loss.</span></div>
+      <div class="row"><span class="k">Cost flip</span><span class="v">Train once (huge); infer millions of times (the long-run bill).</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>During inference, do the model's weights change?</summary><div class="ans"><p>No. At inference the weights are <strong>frozen</strong>; the model just runs inputs forward. Any apparent "learning within a chat" comes from the <strong>context window</strong> (the conversation is fed back in as input), not from updating parameters.</p></div></details>
+      <details><summary>If training is so expensive, why is inference often the bigger cost over time?</summary><div class="ans"><p>Because you <strong>train once but infer endlessly</strong>. A popular model may serve billions of requests, so the cumulative inference compute — and the engineering to serve it fast and cheap — dwarfs the one-time training run.</p></div></details>
+      <details><summary>What is the "forward pass" vs the "backward pass"?</summary><div class="ans"><p>The <strong>forward pass</strong> runs input through the network to produce an output (this is all inference needs). The <strong>backward pass</strong> (backpropagation) happens only in training: it computes the gradient of the loss with respect to each weight so the optimizer can update them.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- TOPIC: Types of ML -->
+<article class="topic" id="ml-types" data-lv="basic" data-keys="supervised unsupervised reinforcement learning labels clustering reward self-supervised semi-supervised">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-06 · how models learn</span>
+      <h3>Supervised, Unsupervised &amp; Reinforcement Learning</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>The three classic learning paradigms differ by <strong>what signal the model learns from</strong>.</p>
+      <p><strong>Supervised learning</strong> uses labelled examples — each input comes with the correct answer (spam/not-spam, price, category). The model learns to map inputs to those known outputs. <strong>Unsupervised learning</strong> has no labels; the model finds structure on its own — grouping similar items (clustering) or compressing data. <strong>Reinforcement learning (RL)</strong> learns by <em>acting</em> in an environment and receiving <strong>rewards</strong> or penalties, optimizing for long-term reward rather than copying labels.</p>
+      <p>Modern LLMs add <strong>self-supervised learning</strong>: the data labels itself. "Predict the next token" turns ordinary text into billions of free training examples — no human labelling needed.</p>
+    </div>
+        <div class="section-tab">Comparison</div>
+    <div class="cmp-wrap">
+      <div class="cmp three">
+        <div class="crow chead"><div>aspect</div><div>Supervised</div><div>Unsupervised</div><div>Reinforcement</div></div>
+        <div class="crow"><div>Data</div><div>Labelled (input + answer)</div><div>Unlabelled</div><div>Reward signal</div></div>
+        <div class="crow"><div>Goal</div><div>Map input &#8594; known output</div><div>Find hidden structure</div><div>Maximize long-term reward</div></div>
+        <div class="crow"><div>Feedback</div><div>Correct answer every example</div><div>None</div><div>Delayed reward / penalty</div></div>
+        <div class="crow"><div>Problems</div><div>Classification, regression</div><div>Clustering, dim. reduction</div><div>Sequential decisions, control</div></div>
+        <div class="crow"><div>Example</div><div>Spam detection</div><div>Customer segments</div><div>Game-playing, robotics</div></div>
+      </div>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Supervised</span><span class="v">Labelled data. Learns input→known output. Classification, regression.</span></div>
+      <div class="row"><span class="k">Unsupervised</span><span class="v">No labels. Finds structure. Clustering, dimensionality reduction.</span></div>
+      <div class="row"><span class="k">Reinforcement</span><span class="v">Learns from reward via actions. Games, robotics, RLHF.</span></div>
+      <div class="row"><span class="k">Self-supervised</span><span class="v">Labels come from the data itself (next-token prediction). Powers LLMs.</span></div>
+      <div class="row"><span class="k">Tell</span><span class="v">Ask: is there a label, a structure to find, or a reward to chase?</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>How are LLMs trained if labelling trillions of words is impossible?</summary><div class="ans"><p>Through <strong>self-supervised learning</strong>. The task is "predict the next token," so any text is automatically its own label — the next word is the answer. This unlocks training on internet-scale data without manual annotation; human labelling comes later, in smaller fine-tuning/RLHF stages.</p></div></details>
+      <details><summary>Give a clean example of supervised vs unsupervised on the same data.</summary><div class="ans"><p>Take customer records. <strong>Supervised:</strong> predict "will churn / won't churn" using past examples labelled with the outcome. <strong>Unsupervised:</strong> with no labels, cluster customers into natural segments and let a human interpret the groups afterward.</p></div></details>
+      <details><summary>Why is reinforcement learning harder than supervised learning?</summary><div class="ans"><p>The feedback is <strong>sparse and delayed</strong> — a reward may come many steps after the action that caused it (the credit-assignment problem). There's also an <strong>exploration vs exploitation</strong> tradeoff: the agent must try new actions to learn while still using what works. Supervised learning, by contrast, gets the right answer immediately for every example.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- TOPIC: Overfitting -->
+<article class="topic" id="overfitting" data-lv="basic" data-keys="overfitting underfitting bias variance generalization regularization train test split validation dropout">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-07 · the central failure mode</span>
+      <h3>Overfitting, Underfitting &amp; Generalization</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>The whole point of ML is <strong>generalization</strong>: doing well on data the model has never seen, not just the training set. Two failure modes block that.</p>
+      <p><strong>Overfitting</strong> is when a model memorizes the training data — including its noise — so it scores high on training but poorly on new data. <strong>Underfitting</strong> is the opposite: the model is too simple to capture the real pattern, so it does poorly on both training and new data. The sweet spot lies between, and this is the <strong>bias–variance tradeoff</strong>: high bias = underfit (too rigid), high variance = overfit (too sensitive to the specific data).</p>
+      <ul>
+        <li>Overfit signal: training accuracy ≫ validation accuracy.</li>
+        <li>Fixes: more data, regularization (e.g. dropout, weight decay), simpler model, early stopping.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Underfitting, good fit and overfitting compared">
+  <g>
+    <rect x="30" y="30" width="180" height="120" rx="8" fill="#fff" stroke="#e0e2ec"/>
+    <circle cx="60" cy="120" r="4" fill="#9492ad"/><circle cx="85" cy="95" r="4" fill="#9492ad"/><circle cx="110" cy="105" r="4" fill="#9492ad"/><circle cx="135" cy="70" r="4" fill="#9492ad"/><circle cx="160" cy="80" r="4" fill="#9492ad"/><circle cx="185" cy="55" r="4" fill="#9492ad"/>
+    <line x1="45" y1="115" x2="200" y2="70" stroke="#d94d6a" stroke-width="2.4"/>
+    <text class="dl" x="120" y="172" text-anchor="middle" font-size="11.5" fill="#d94d6a">underfit</text>
+    <text class="dl" x="120" y="190" text-anchor="middle" font-size="9.5">too simple</text>
+  </g>
+  <g>
+    <rect x="240" y="30" width="180" height="120" rx="8" fill="#fff" stroke="#e0e2ec"/>
+    <circle cx="270" cy="120" r="4" fill="#9492ad"/><circle cx="295" cy="95" r="4" fill="#9492ad"/><circle cx="320" cy="105" r="4" fill="#9492ad"/><circle cx="345" cy="70" r="4" fill="#9492ad"/><circle cx="370" cy="80" r="4" fill="#9492ad"/><circle cx="395" cy="55" r="4" fill="#9492ad"/>
+    <path d="M258 122 Q320 92 410 58" fill="none" stroke="#1ea672" stroke-width="2.4"/>
+    <text class="dl" x="330" y="172" text-anchor="middle" font-size="11.5" fill="#1ea672">good fit</text>
+    <text class="dl" x="330" y="190" text-anchor="middle" font-size="9.5">generalizes</text>
+  </g>
+  <g>
+    <rect x="450" y="30" width="180" height="120" rx="8" fill="#fff" stroke="#e0e2ec"/>
+    <circle cx="480" cy="120" r="4" fill="#9492ad"/><circle cx="505" cy="95" r="4" fill="#9492ad"/><circle cx="530" cy="105" r="4" fill="#9492ad"/><circle cx="555" cy="70" r="4" fill="#9492ad"/><circle cx="580" cy="80" r="4" fill="#9492ad"/><circle cx="605" cy="55" r="4" fill="#9492ad"/>
+    <path d="M480 120 L505 95 L530 105 L555 70 L580 80 L605 55" fill="none" stroke="#d98a00" stroke-width="2.4"/>
+    <text class="dl" x="540" y="172" text-anchor="middle" font-size="11.5" fill="#d98a00">overfit</text>
+    <text class="dl" x="540" y="190" text-anchor="middle" font-size="9.5">memorizes noise</text>
+  </g>
+</svg>
+      <figcaption>The same data, fit three ways: too rigid, just right, and contorting through every point.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Overfitting</span><span class="v">Memorizes training data + noise. Great on train, bad on test.</span></div>
+      <div class="row"><span class="k">Underfitting</span><span class="v">Too simple to learn the pattern. Bad on train AND test.</span></div>
+      <div class="row"><span class="k">Bias / variance</span><span class="v">High bias = underfit; high variance = overfit. Balance them.</span></div>
+      <div class="row"><span class="k">Detect</span><span class="v">Split data: train / validation / test. Watch the gap.</span></div>
+      <div class="row"><span class="k">Fix overfit</span><span class="v">More data · regularization · dropout · early stopping · simpler model.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>How do you detect overfitting?</summary><div class="ans"><p>Hold out data the model never trains on. If <strong>training performance keeps improving while validation performance stalls or worsens</strong>, the model is overfitting. The growing gap between train and validation curves is the classic tell.</p></div></details>
+      <details><summary>Why do we split data into train, validation, and test sets?</summary><div class="ans"><p><strong>Train</strong> fits the parameters. <strong>Validation</strong> tunes choices like hyperparameters and tells you when to stop. <strong>Test</strong> is touched only once at the end to estimate real-world performance. Keeping test separate prevents you from unconsciously overfitting to it through repeated tweaking.</p></div></details>
+      <details><summary>Name a few ways to reduce overfitting.</summary><div class="ans"><p><strong>Get more (or more varied) data</strong>, apply <strong>regularization</strong> (weight decay, dropout), use a <strong>simpler model</strong>, add <strong>data augmentation</strong>, and use <strong>early stopping</strong> to halt before the model starts memorizing. Cross-validation also gives a more honest performance estimate.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- TOPIC: Knowledge cutoff -->
+<article class="topic" id="cutoff" data-lv="basic" data-keys="knowledge cutoff training date stale outdated recent events current information rag web search freshness">
+  <header>
+    <div style="flex:1">
+      <span class="label">FND-08 · what the model doesn't know</span>
+      <h3>Knowledge Cutoff</h3>
+    </div>
+    <span class="pill basic">Basic</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>A model's <strong>knowledge cutoff</strong> is the date after which it has no built-in information. Its parameters were frozen during training on data collected up to that point, so anything that happened later — news, releases, prices, election results — simply isn't in the weights. Ask about it and the model will either say it doesn't know or, worse, <strong>hallucinate</strong> a plausible-sounding guess.</p>
+      <p>This is a direct consequence of training and inference being separate phases: knowledge is baked in at training time and doesn't update on its own. To give a model fresh information you don't retrain it — you <strong>supply the facts at inference time</strong> via the context window, using <strong>RAG</strong> or live <strong>tool/web access</strong>. Cutoff is about <em>parametric</em> knowledge; retrieval adds <em>external</em> knowledge.</p>
+      <ul>
+        <li>Cutoff ≠ today. There's also a lag between the cutoff and a model's public release.</li>
+        <li>Fix stale answers with retrieval or search tools, not by hoping the model "knows."</li>
+      </ul>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Cutoff</span><span class="v">Last date in training data; no built-in knowledge after it.</span></div>
+      <div class="row"><span class="k">Why</span><span class="v">Weights frozen at training; they don't self-update.</span></div>
+      <div class="row"><span class="k">Symptom</span><span class="v">Wrong/"I don't know" on recent events; confident hallucination.</span></div>
+      <div class="row"><span class="k">Fix</span><span class="v">Feed facts at inference: RAG or live web/tool access.</span></div>
+      <div class="row"><span class="k">Note</span><span class="v">Parametric knowledge (cutoff) vs external knowledge (retrieval).</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>A user asks your LLM app about something that happened yesterday. How do you handle it?</summary><div class="ans"><p>Don't rely on parametric memory — it's past the cutoff. <strong>Retrieve current information</strong> (a web-search tool or a freshly updated knowledge base) and pass it into the prompt so the model answers from real, recent context. Ideally also have the model <strong>cite the source</strong> and acknowledge uncertainty when retrieval finds nothing.</p></div></details>
+      <details><summary>Does a bigger context window remove the need to worry about cutoff?</summary><div class="ans"><p>No — they're different things. The <strong>cutoff</strong> limits what the model learned during training; the <strong>context window</strong> is how much you can feed it at runtime. A huge window helps you <em>inject</em> fresh data, but the fresh data still has to come from somewhere (retrieval/tools). The window is the delivery channel, not the knowledge.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- ================= CORE CONCEPTS ================= -->
+<div class="group-head"><span class="num">02</span><h2>Core Concepts</h2><span class="line"></span></div>
+<p class="group-sub">How modern language models actually work, and the levers you pull when you use one.</p>
+
+<!-- Neural networks -->
+<article class="topic" id="neural-nets" data-lv="inter" data-keys="neural network neuron layer activation relu weights bias hidden perceptron forward">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-01 · the building block</span>
+      <h3>Neural Networks</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>A <strong>neural network</strong> is layers of simple units ("neurons") connected by weighted links. Each neuron multiplies its inputs by weights, adds a bias, and passes the result through a non-linear <strong>activation function</strong> (like ReLU). Stack enough of these layers and the network can approximate extremely complex input→output relationships.</p>
+      <p>The <strong>non-linearity</strong> is the secret. Without an activation function, stacking layers would collapse into a single linear function no matter how deep. Non-linear activations let each layer build richer features on top of the last — edges → shapes → objects, or letters → words → meaning.</p>
+      <ul>
+        <li>Input layer → hidden layers → output layer.</li>
+        <li>"Deep" simply means many hidden layers.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Neural network with input, two hidden layers and output">
+  <g stroke="#d6d4ee" stroke-width="1">
+<line x1="120" y1="80" x2="280" y2="45"/><line x1="120" y1="80" x2="280" y2="90"/><line x1="120" y1="80" x2="280" y2="135"/><line x1="120" y1="80" x2="280" y2="180"/><line x1="120" y1="80" x2="280" y2="225"/><line x1="120" y1="125" x2="280" y2="45"/><line x1="120" y1="125" x2="280" y2="90"/><line x1="120" y1="125" x2="280" y2="135"/><line x1="120" y1="125" x2="280" y2="180"/><line x1="120" y1="125" x2="280" y2="225"/><line x1="120" y1="170" x2="280" y2="45"/><line x1="120" y1="170" x2="280" y2="90"/><line x1="120" y1="170" x2="280" y2="135"/><line x1="120" y1="170" x2="280" y2="180"/><line x1="120" y1="170" x2="280" y2="225"/><line x1="280" y1="45" x2="440" y2="45"/><line x1="280" y1="45" x2="440" y2="90"/><line x1="280" y1="45" x2="440" y2="135"/><line x1="280" y1="45" x2="440" y2="180"/><line x1="280" y1="45" x2="440" y2="225"/><line x1="280" y1="90" x2="440" y2="45"/><line x1="280" y1="90" x2="440" y2="90"/><line x1="280" y1="90" x2="440" y2="135"/><line x1="280" y1="90" x2="440" y2="180"/><line x1="280" y1="90" x2="440" y2="225"/><line x1="280" y1="135" x2="440" y2="45"/><line x1="280" y1="135" x2="440" y2="90"/><line x1="280" y1="135" x2="440" y2="135"/><line x1="280" y1="135" x2="440" y2="180"/><line x1="280" y1="135" x2="440" y2="225"/><line x1="280" y1="180" x2="440" y2="45"/><line x1="280" y1="180" x2="440" y2="90"/><line x1="280" y1="180" x2="440" y2="135"/><line x1="280" y1="180" x2="440" y2="180"/><line x1="280" y1="180" x2="440" y2="225"/><line x1="280" y1="225" x2="440" y2="45"/><line x1="280" y1="225" x2="440" y2="90"/><line x1="280" y1="225" x2="440" y2="135"/><line x1="280" y1="225" x2="440" y2="180"/><line x1="280" y1="225" x2="440" y2="225"/><line x1="440" y1="45" x2="580" y2="100"/><line x1="440" y1="45" x2="580" y2="150"/><line x1="440" y1="90" x2="580" y2="100"/><line x1="440" y1="90" x2="580" y2="150"/><line x1="440" y1="135" x2="580" y2="100"/><line x1="440" y1="135" x2="580" y2="150"/><line x1="440" y1="180" x2="580" y2="100"/><line x1="440" y1="180" x2="580" y2="150"/><line x1="440" y1="225" x2="580" y2="100"/><line x1="440" y1="225" x2="580" y2="150"/>
+  </g>
+<circle cx="120" cy="80" r="12" fill="#d6f3ee" stroke="#0a9f8a" stroke-width="1.5"/><circle cx="120" cy="125" r="12" fill="#d6f3ee" stroke="#0a9f8a" stroke-width="1.5"/><circle cx="120" cy="170" r="12" fill="#d6f3ee" stroke="#0a9f8a" stroke-width="1.5"/><circle cx="280" cy="45" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="280" cy="90" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="280" cy="135" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="280" cy="180" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="280" cy="225" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="440" cy="45" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="440" cy="90" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="440" cy="135" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="440" cy="180" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="440" cy="225" r="12" fill="#ece9ff" stroke="#6d5bff" stroke-width="1.5"/><circle cx="580" cy="100" r="12" fill="#14122B" stroke="#14122B" stroke-width="1.5"/><circle cx="580" cy="150" r="12" fill="#14122B" stroke="#14122B" stroke-width="1.5"/>
+  <text class="dl" x="120" y="245" text-anchor="middle" font-size="11">input</text>
+  <text class="dl" x="280" y="245" text-anchor="middle" font-size="11">hidden</text>
+  <text class="dl" x="440" y="245" text-anchor="middle" font-size="11">hidden</text>
+  <text class="dl" x="580" y="245" text-anchor="middle" font-size="11">output</text>
+</svg>
+      <figcaption>Layers of weighted nodes; each connection is a parameter, each node applies a non-linear activation.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Neuron</span><span class="v">weighted sum of inputs + bias, then an activation function.</span></div>
+      <div class="row"><span class="k">Activation</span><span class="v">Non-linearity (ReLU, sigmoid, tanh). Lets depth add power.</span></div>
+      <div class="row"><span class="k">Layers</span><span class="v">Input → hidden(s) → output. "Deep" = many hidden layers.</span></div>
+      <div class="row"><span class="k">Learning</span><span class="v">Backprop computes gradients; optimizer updates weights.</span></div>
+      <div class="row"><span class="k">Why non-linear</span><span class="v">Without it, any depth = one linear layer. No extra power.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Why do neural networks need non-linear activation functions?</summary><div class="ans"><p>Because a composition of <strong>linear</strong> functions is still just one linear function. Without non-linearity, a 50-layer network would have no more expressive power than a single layer. Activations like ReLU introduce the non-linearity that lets deeper layers represent progressively more abstract features.</p></div></details>
+      <details><summary>What is the vanishing gradient problem?</summary><div class="ans"><p>In very deep networks, gradients can shrink toward zero as they propagate backward, so early layers barely update and learning stalls. Mitigations include <strong>ReLU activations</strong>, careful weight initialization, <strong>residual/skip connections</strong>, and normalization layers — all of which help gradients flow.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Embeddings -->
+<article class="topic" id="embeddings" data-lv="inter" data-keys="embedding vector semantic similarity cosine distance dimensions representation search retrieval space">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-02 · meaning as geometry</span>
+      <h3>Embeddings</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>An <strong>embedding</strong> is a list of numbers (a vector) that represents a piece of data — a word, sentence, image, or document — in a way that captures its <em>meaning</em>. The key property: <strong>similar things land close together</strong> in this high-dimensional space, while unrelated things are far apart.</p>
+      <p>This turns "meaning" into geometry. You can measure how related two texts are by the <strong>cosine similarity</strong> (angle) between their vectors. Embeddings are the backbone of semantic search, recommendations, clustering, and Retrieval-Augmented Generation — anywhere you need "find me things <em>like</em> this" rather than exact keyword matches.</p>
+      <ul>
+        <li>"king" − "man" + "woman" ≈ "queen" — relationships become vector arithmetic.</li>
+        <li>Search by meaning: "car" matches "automobile" even with no shared letters.</li>
+      </ul>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Embedding space where similar words cluster together">
+  <rect x="30" y="20" width="600" height="230" rx="10" fill="#fff" stroke="#e0e2ec"/>
+  <!-- royalty cluster (top right) -->
+  <circle cx="430" cy="70" r="6" fill="#6d5bff"/><text class="dt" x="442" y="74" font-size="12">king</text>
+  <circle cx="500" cy="95" r="6" fill="#6d5bff"/><text class="dt" x="512" y="99" font-size="12">queen</text>
+  <circle cx="420" cy="130" r="6" fill="#6d5bff"/><text class="dt" x="432" y="134" font-size="12">man</text>
+  <circle cx="490" cy="155" r="6" fill="#6d5bff"/><text class="dt" x="502" y="159" font-size="12">woman</text>
+  <line x1="430" y1="70" x2="500" y2="95" stroke="#9b91ee" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <line x1="420" y1="130" x2="490" y2="155" stroke="#9b91ee" stroke-width="1.6" stroke-dasharray="4 3"/>
+  <text class="dl" x="560" y="115" font-size="9.5" fill="#6d5bff">same offset</text>
+  <!-- animals cluster (bottom left) -->
+  <circle cx="120" cy="180" r="6" fill="#0a9f8a"/><text class="dt" x="132" y="184" font-size="12">cat</text>
+  <circle cx="160" cy="210" r="6" fill="#0a9f8a"/><text class="dt" x="172" y="214" font-size="12">dog</text>
+  <circle cx="110" cy="220" r="6" fill="#0a9f8a"/><text class="dt" x="122" y="224" font-size="12">kitten</text>
+  <ellipse cx="135" cy="205" rx="70" ry="48" fill="none" stroke="#0a9f8a" stroke-width="1.3" stroke-dasharray="3 3"/>
+  <ellipse cx="460" cy="112" rx="90" ry="70" fill="none" stroke="#6d5bff" stroke-width="1.3" stroke-dasharray="3 3"/>
+  <text class="dl" x="50" y="40" font-size="11">similar meanings &#8594; nearby vectors</text>
+</svg>
+      <figcaption>Meaning becomes geometry: related words land close, and analogies show up as parallel offsets.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Embedding</span><span class="v">A vector representing meaning. Similar items → nearby vectors.</span></div>
+      <div class="row"><span class="k">Similarity</span><span class="v">Cosine similarity / distance measures relatedness.</span></div>
+      <div class="row"><span class="k">Used for</span><span class="v">Semantic search, RAG, clustering, recommendations, dedup.</span></div>
+      <div class="row"><span class="k">Stored in</span><span class="v">Vector databases for fast nearest-neighbour lookup.</span></div>
+      <div class="row"><span class="k">Key idea</span><span class="v">Meaning becomes geometry; "like this" = "close to this."</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>How is semantic search different from keyword search?</summary><div class="ans"><p>Keyword search matches <strong>exact strings</strong> — "automobile" won't find "car." Semantic search compares <strong>embeddings</strong>, so it matches on meaning: "car," "automobile," and "vehicle" all sit near each other in vector space and retrieve one another regardless of shared characters.</p></div></details>
+      <details><summary>Why cosine similarity rather than plain distance?</summary><div class="ans"><p>Cosine similarity measures the <strong>angle</strong> between vectors, ignoring their magnitude. For text embeddings, <em>direction</em> tends to encode meaning while magnitude can vary with length or frequency, so comparing direction gives a cleaner relatedness signal. (It's also bounded between −1 and 1, which is convenient.)</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Transformers & attention -->
+<article class="topic" id="transformers" data-lv="inter" data-keys="transformer attention self-attention query key value parallel positional encoding architecture gpt bert">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-03 · the architecture behind everything</span>
+      <h3>Transformers &amp; Attention</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>The <strong>Transformer</strong> (2017, "Attention Is All You Need") is the architecture under almost every modern LLM. Its core mechanism is <strong>self-attention</strong>: for each token, the model looks at every other token in the sequence and decides how much each one should influence its representation. This lets it capture long-range relationships — linking a pronoun to a noun many words earlier, for example.</p>
+      <p>Attention works through <strong>queries, keys, and values</strong>: each token emits a query ("what am I looking for?") and a key ("what do I offer?"); their match scores decide how much of each token's value gets mixed in. Because attention compares all tokens at once, Transformers <strong>process sequences in parallel</strong> (unlike older RNNs that went word-by-word), which is why they scale so well on GPUs. <strong>Positional encodings</strong> are added so the model still knows word order.</p>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Attention weights from the word it to other words">
+  <path d="M470 150 C420 80, 150 80, 110 150" fill="none" stroke="#6d5bff" stroke-width="5" opacity="0.85"/>
+  <path d="M470 150 C460 95, 580 95, 590 150" fill="none" stroke="#6d5bff" stroke-width="2.2" opacity="0.55"/>
+  <path d="M470 150 C440 110, 270 110, 250 150" fill="none" stroke="#6d5bff" stroke-width="1.2" opacity="0.4"/>
+<g><rect x="60" y="150" width="70" height="34" rx="7" fill="#f6f7fb" stroke="#e0e2ec"/><text x="95.0" y="172" text-anchor="middle" font-size="12" fill="#41415c" font-family="'JetBrains Mono',monospace">The</text></g><g><rect x="95" y="150" width="70" height="34" rx="7" fill="#ece9ff" stroke="#6d5bff"/><text x="130.0" y="172" text-anchor="middle" font-size="12" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">cat</text></g><g><rect x="235" y="150" width="70" height="34" rx="7" fill="#f6f7fb" stroke="#e0e2ec"/><text x="270.0" y="172" text-anchor="middle" font-size="12" fill="#41415c" font-family="'JetBrains Mono',monospace">sat</text></g><g><rect x="310" y="150" width="130" height="34" rx="7" fill="#f6f7fb" stroke="#e0e2ec"/><text x="375.0" y="172" text-anchor="middle" font-size="12" fill="#41415c" font-family="'JetBrains Mono',monospace">because</text></g><g><rect x="445" y="150" width="55" height="34" rx="7" fill="#14122B" stroke="#14122B"/><text x="472.5" y="172" text-anchor="middle" font-size="12" fill="#fff" font-family="'JetBrains Mono',monospace">it</text></g><g><rect x="505" y="150" width="70" height="34" rx="7" fill="#f6f7fb" stroke="#e0e2ec"/><text x="540.0" y="172" text-anchor="middle" font-size="12" fill="#41415c" font-family="'JetBrains Mono',monospace">was</text></g><g><rect x="565" y="150" width="80" height="34" rx="7" fill="#ece9ff" stroke="#6d5bff"/><text x="605.0" y="172" text-anchor="middle" font-size="12" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">tired</text></g>
+  <text class="dl" x="330" y="40" text-anchor="middle" font-size="11.5">to resolve "it", attention looks back at every token...</text>
+  <text class="dl" x="330" y="58" text-anchor="middle" font-size="10.5" fill="#6d5bff">thicker line = more attention (here: "cat")</text>
+</svg>
+      <figcaption>Self-attention lets each token weigh every other token; thickness here shows where &quot;it&quot; looks.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Transformer</span><span class="v">Architecture using attention; basis of modern LLMs.</span></div>
+      <div class="row"><span class="k">Self-attention</span><span class="v">Each token weighs every other token's relevance to it.</span></div>
+      <div class="row"><span class="k">Q · K · V</span><span class="v">Query asks, Key advertises, Value is the content mixed in.</span></div>
+      <div class="row"><span class="k">Parallel</span><span class="v">Sees whole sequence at once → fast on GPUs (vs RNN's serial).</span></div>
+      <div class="row"><span class="k">Positional enc.</span><span class="v">Injects word-order info since attention is order-agnostic.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Why did Transformers replace RNNs/LSTMs for language?</summary><div class="ans"><p>RNNs process tokens <strong>sequentially</strong>, which is slow and makes long-range dependencies hard to learn (information fades over distance). Transformers use <strong>attention to see the whole sequence at once</strong>, so they parallelize on GPUs and connect distant tokens directly. That combination unlocked training on far larger data and models.</p></div></details>
+      <details><summary>In one line, what does self-attention do?</summary><div class="ans"><p>For every token, it computes a <strong>weighted blend of all other tokens</strong>, where the weights reflect how relevant each token is — letting the model build context-aware representations.</p></div></details>
+      <details><summary>What's the main computational cost of attention?</summary><div class="ans"><p>Standard self-attention is <strong>quadratic in sequence length</strong> (every token attends to every other), so doubling the context roughly quadruples the attention compute and memory. This is why long-context models need optimizations like FlashAttention or sparse/linear attention variants.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- LLMs -->
+<article class="topic" id="llms" data-lv="inter" data-keys="llm large language model next token prediction autoregressive probability generation pretraining decoder">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-04 · what an LLM really does</span>
+      <h3>Large Language Models (LLMs)</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>An <strong>LLM</strong> is a large Transformer trained to do one deceptively simple thing: <strong>predict the next token</strong> given the tokens so far. It outputs a probability distribution over the whole vocabulary, picks a token, appends it, and repeats — this is called <strong>autoregressive</strong> generation. Everything an LLM appears to "know" or "reason" emerges from doing this at massive scale.</p>
+      <p>Training has stages: <strong>pre-training</strong> on huge unlabelled text (learning language and world patterns via next-token prediction), then <strong>fine-tuning / instruction-tuning</strong> and <strong>alignment (RLHF)</strong> to make it follow instructions helpfully and safely. The raw pre-trained model just continues text; the aligned model behaves like an assistant.</p>
+      <ul>
+        <li>It doesn't "look up" answers — it generates the most probable continuation.</li>
+        <li>That's also why it can <strong>hallucinate</strong>: plausible-sounding text isn't always true.</li>
+      </ul>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Core task</span><span class="v">Predict the next token. Repeat = generation (autoregressive).</span></div>
+      <div class="row"><span class="k">Output</span><span class="v">A probability distribution over the vocabulary each step.</span></div>
+      <div class="row"><span class="k">Pre-training</span><span class="v">Self-supervised on huge text. Learns language + world patterns.</span></div>
+      <div class="row"><span class="k">Post-training</span><span class="v">Instruction-tuning + RLHF → helpful, aligned assistant.</span></div>
+      <div class="row"><span class="k">Caveat</span><span class="v">Generates plausible text, not verified fact → can hallucinate.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Does an LLM "understand" language or just predict text?</summary><div class="ans"><p>Mechanically it predicts the next token. But to predict well across vast contexts it builds <strong>internal representations</strong> that capture syntax, facts, and relationships — which behaves like a useful, if imperfect, form of understanding. The honest interview answer: it's prediction that yields emergent competence, while lacking grounding, true beliefs, or guaranteed factual accuracy.</p></div></details>
+      <details><summary>Why does an LLM hallucinate?</summary><div class="ans"><p>It's optimized to produce <strong>probable, fluent continuations</strong>, not to verify truth. When it lacks the knowledge, it still generates the most plausible-sounding text, which can be confidently wrong. Mitigations include retrieval (RAG) to ground answers, and prompting it to express uncertainty or cite sources.</p></div></details>
+      <details><summary>What's the difference between a base model and an instruct model?</summary><div class="ans"><p>A <strong>base (pre-trained) model</strong> just continues text statistically — ask it a question and it might continue with more questions. An <strong>instruct/chat model</strong> has been fine-tuned and aligned (often with RLHF) to follow instructions and respond as a helpful assistant.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Context window -->
+<article class="topic" id="context" data-lv="inter" data-keys="context window memory tokens limit prompt long conversation truncation kv cache state">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-05 · the model's working memory</span>
+      <h3>Context Window</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>The <strong>context window</strong> is the maximum number of tokens a model can consider at once — its short-term working memory. Everything the model "remembers" in a conversation lives here: the system prompt, the chat history, your current question, and the space reserved for its answer all share this single budget.</p>
+      <p>Crucially, <strong>the model has no memory between separate calls</strong>. The illusion of memory in a chat comes from re-sending the conversation each turn. When the conversation exceeds the window, older content must be dropped, summarized, or retrieved on demand. Bigger windows help, but very long contexts can dilute attention (the "lost in the middle" effect) and cost more.</p>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 165" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Context window token budget split across system, history, question and answer">
+  <text class="dl" x="40" y="34" font-size="11.5">one shared token budget &#8594;</text>
+<g><rect x="40" y="50" width="80" height="44" rx="6" fill="#ddd9fb" stroke="#9b91ee"/><text x="80.0" y="77" text-anchor="middle" font-size="10.5" fill="#3a338a" font-family="'JetBrains Mono',monospace">system</text></g><g><rect x="122" y="50" width="230" height="44" rx="6" fill="#ece9ff" stroke="#6d5bff"/><text x="237.0" y="77" text-anchor="middle" font-size="10.5" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">chat history</text></g><g><rect x="354" y="50" width="90" height="44" rx="6" fill="#d6f3ee" stroke="#0a9f8a"/><text x="399.0" y="77" text-anchor="middle" font-size="10.5" fill="#0a7a6a" font-family="'JetBrains Mono',monospace">question</text></g><g><rect x="446" y="50" width="130" height="44" rx="6" fill="#fbeed2" stroke="#d98a00"/><text x="511.0" y="77" text-anchor="middle" font-size="10.5" fill="#9a6200" font-family="'JetBrains Mono',monospace">answer (reserved)</text></g>
+  <line x1="578" y1="40" x2="578" y2="104" stroke="#d94d6a" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="588" y="60" font-size="10" fill="#d94d6a" font-family="'JetBrains Mono',monospace">limit</text>
+  <text x="588" y="74" font-size="10" fill="#d94d6a" font-family="'JetBrains Mono',monospace">overflow</text>
+  <text x="588" y="88" font-size="10" fill="#d94d6a" font-family="'JetBrains Mono',monospace">dropped</text>
+  <text class="dl" x="40" y="128" font-size="10.5">everything competes for the same window &#183; exceed it and the oldest content falls off</text>
+</svg>
+      <figcaption>Prompt, history, question and the reply all share one fixed token budget.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Context window</span><span class="v">Max tokens the model sees at once (prompt + output).</span></div>
+      <div class="row"><span class="k">Shared budget</span><span class="v">System prompt + history + question + answer all count.</span></div>
+      <div class="row"><span class="k">No real memory</span><span class="v">Statelessness between calls; history is re-sent each turn.</span></div>
+      <div class="row"><span class="k">Overflow</span><span class="v">Truncate, summarize, or retrieve (RAG) older content.</span></div>
+      <div class="row"><span class="k">Long-context risk</span><span class="v">"Lost in the middle"; higher latency and cost.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>How does a chatbot "remember" earlier messages if models are stateless?</summary><div class="ans"><p>It doesn't, internally. The application <strong>resends the prior conversation as part of the prompt</strong> on every turn. The model re-reads that history within its context window each time, which produces the feeling of memory. Drop the history and the "memory" vanishes.</p></div></details>
+      <details><summary>A 1M-token context window sounds like it solves memory. What's the catch?</summary><div class="ans"><p>Cost and attention quality. Processing huge contexts is <strong>slower and more expensive</strong>, and models can struggle to use information buried in the middle of very long inputs. For persistent or huge knowledge, <strong>retrieval (RAG)</strong> is often better than stuffing everything into context.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Prompt engineering -->
+<article class="topic" id="prompting" data-lv="inter" data-keys="prompt engineering zero shot few shot chain of thought system prompt role instructions examples reasoning">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-06 · steering without retraining</span>
+      <h3>Prompt Engineering</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p><strong>Prompt engineering</strong> is shaping a model's output purely through its input — no retraining required. Because an LLM continues from whatever you give it, the wording, structure, examples, and constraints you provide strongly steer the result.</p>
+      <p>Core techniques: <strong>zero-shot</strong> (just ask), <strong>few-shot</strong> (include a handful of input→output examples so the model infers the pattern), and <strong>chain-of-thought</strong> (ask it to reason step by step, which improves multi-step problems). A <strong>system prompt</strong> sets persistent role and rules. Good prompts are specific about role, task, format, and constraints, and often give positive examples of the desired output.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Zero-shot</span><span class="v">Ask directly, no examples.</span></div>
+      <div class="row"><span class="k">Few-shot</span><span class="v">Give 2–5 examples; model copies the pattern.</span></div>
+      <div class="row"><span class="k">Chain-of-thought</span><span class="v">"Think step by step" → better multi-step reasoning.</span></div>
+      <div class="row"><span class="k">System prompt</span><span class="v">Sets persistent role, tone, rules for the whole session.</span></div>
+      <div class="row"><span class="k">Good prompt</span><span class="v">Clear role + task + format + constraints + examples.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>When would you use few-shot over zero-shot?</summary><div class="ans"><p>When the task has a <strong>specific format or style</strong> that's hard to describe but easy to demonstrate, or when zero-shot results are inconsistent. A few well-chosen examples anchor the output format and reduce ambiguity — at the cost of extra tokens.</p></div></details>
+      <details><summary>Why does chain-of-thought prompting improve accuracy?</summary><div class="ans"><p>It lets the model <strong>spend more tokens "working through" intermediate steps</strong> instead of jumping to an answer. Since each token is conditioned on the ones before it, externalizing the reasoning gives the model scaffolding to reach correct multi-step conclusions, especially for math and logic.</p></div></details>
+      <details><summary>When is prompt engineering not enough, and you need fine-tuning?</summary><div class="ans"><p>When you need <strong>consistent specialized behaviour, a domain style, or to bake in knowledge/format at scale</strong> that's too large or repetitive to fit in every prompt. Prompting is fast and flexible; fine-tuning is worth it when you have many examples and need reliability or lower per-call token cost.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Sampling params -->
+<article class="topic" id="sampling" data-lv="inter" data-keys="temperature top-k top-p nucleus sampling randomness creativity determinism greedy decoding parameters">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-07 · the output dials</span>
+      <h3>Temperature, Top-k &amp; Top-p</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>At each step an LLM produces a probability distribution over possible next tokens. <strong>Sampling parameters</strong> control how that distribution is turned into an actual choice — trading off determinism against creativity.</p>
+      <p><strong>Temperature</strong> scales the distribution: low (→0) makes it sharp and near-deterministic (always pick the likeliest token); high (→1+) flattens it, making rarer tokens more likely and output more varied. <strong>Top-k</strong> restricts the choice to the k most likely tokens. <strong>Top-p (nucleus)</strong> keeps the smallest set of tokens whose probabilities sum to p, adapting the cutoff to the situation. These filters and temperature are usually combined.</p>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Token probability distribution at low versus high temperature">
+  <text x="165" y="26" text-anchor="middle" font-size="12" fill="#191830" font-family="'Space Grotesk',sans-serif" font-weight="600">low temp (0.2) &#183; sharp</text>
+  <text x="495" y="26" text-anchor="middle" font-size="12" fill="#191830" font-family="'Space Grotesk',sans-serif" font-weight="600">high temp (1.0) &#183; flat</text>
+  <line x1="40" y1="180" x2="300" y2="180" stroke="#c9cbe0"/>
+  <line x1="370" y1="180" x2="630" y2="180" stroke="#c9cbe0"/>
+<rect x="55" y="60" width="34" height="120" rx="3" fill="#6d5bff" opacity="1"/><rect x="105" y="162" width="34" height="18" rx="3" fill="#6d5bff" opacity="0.5"/><rect x="155" y="170" width="34" height="10" rx="3" fill="#6d5bff" opacity="0.45"/><rect x="205" y="172" width="34" height="8" rx="3" fill="#6d5bff" opacity="0.4"/><rect x="255" y="174" width="34" height="6" rx="3" fill="#6d5bff" opacity="0.4"/><rect x="385" y="108" width="34" height="72" rx="3" fill="#0a9f8a" opacity="0.95"/><rect x="435" y="122" width="34" height="58" rx="3" fill="#0a9f8a" opacity="0.9"/><rect x="485" y="116" width="34" height="64" rx="3" fill="#0a9f8a" opacity="0.9"/><rect x="535" y="136" width="34" height="44" rx="3" fill="#0a9f8a" opacity="0.85"/><rect x="585" y="128" width="34" height="52" rx="3" fill="#0a9f8a" opacity="0.88"/>
+  <text class="dl" x="165" y="205" text-anchor="middle" font-size="10.5">picks the top token almost always</text>
+  <text class="dl" x="495" y="205" text-anchor="middle" font-size="10.5">spreads probability &#8594; more varied</text>
+</svg>
+      <figcaption>Temperature reshapes the distribution: low = focused and repeatable, high = diverse and creative.</figcaption>
+    </figure>
+    <div class="section-tab">Comparison</div>
+    <div class="cmp-wrap">
+      <div class="cmp three">
+        <div class="crow chead"><div>aspect</div><div>Temperature</div><div>Top-k</div><div>Top-p (nucleus)</div></div>
+        <div class="crow"><div>Controls</div><div>Overall randomness</div><div>Candidate count (fixed)</div><div>Candidate prob. mass</div></div>
+        <div class="crow"><div>Low value</div><div>Focused, deterministic</div><div>Few tokens allowed</div><div>Narrow set</div></div>
+        <div class="crow"><div>High value</div><div>Diverse, creative</div><div>Many tokens allowed</div><div>Wide set</div></div>
+        <div class="crow"><div>Adapts?</div><div>Scales whole distribution</div><div>No &#8212; fixed k</div><div>Yes &#8212; to confidence</div></div>
+        <div class="crow"><div>Typical</div><div>0 &#8211; 1+</div><div>20 &#8211; 50</div><div>0.8 &#8211; 0.95</div></div>
+      </div>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Temperature</span><span class="v">↓ = focused/deterministic · ↑ = diverse/creative (risk of nonsense).</span></div>
+      <div class="row"><span class="k">Top-k</span><span class="v">Sample only from the k most likely tokens.</span></div>
+      <div class="row"><span class="k">Top-p</span><span class="v">Sample from smallest set summing to prob. p (adaptive).</span></div>
+      <div class="row"><span class="k">Greedy</span><span class="v">Always take the top token (temp ≈ 0). Repetitive but safe.</span></div>
+      <div class="row"><span class="k">Use low temp</span><span class="v">Facts, code, extraction · high temp: brainstorming, fiction.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>You're building a code generator — what temperature and why?</summary><div class="ans"><p><strong>Low temperature (near 0).</strong> Code needs to be precise and reproducible; you want the model to pick the most probable, correct tokens rather than explore creative-but-broken variations. High temperature is for tasks where variety is the goal, like ideation or storytelling.</p></div></details>
+      <details><summary>What's the difference between top-k and top-p?</summary><div class="ans"><p><strong>Top-k</strong> uses a fixed count — always the k likeliest tokens, regardless of how confident the model is. <strong>Top-p (nucleus)</strong> uses a fixed probability mass, so the candidate set <em>shrinks when the model is confident</em> and grows when it's uncertain. Top-p adapts to the distribution; top-k doesn't.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Fine-tuning -->
+<article class="topic" id="finetuning" data-lv="inter" data-keys="fine-tuning pretraining transfer learning instruction tuning domain adaptation training data customization">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-08 · specializing a model</span>
+      <h3>Pre-training vs. Fine-tuning</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p><strong>Pre-training</strong> builds general capability: a model learns language and broad world knowledge from enormous unlabelled data via next-token prediction. It's hugely expensive and done rarely. <strong>Fine-tuning</strong> takes that pre-trained model and continues training it on a smaller, focused dataset to specialize it — a domain (legal, medical), a task (classification), or a style/behaviour.</p>
+      <p>This is <strong>transfer learning</strong>: reuse the general knowledge, adapt the edges. <strong>Instruction-tuning</strong> is a fine-tuning step that teaches a model to follow instructions. Fine-tuning changes the weights, unlike prompting or RAG which only change the input.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Pre-training</span><span class="v">General knowledge from massive data. Expensive, rare.</span></div>
+      <div class="row"><span class="k">Fine-tuning</span><span class="v">Specialize on a smaller focused dataset. Changes weights.</span></div>
+      <div class="row"><span class="k">Transfer learning</span><span class="v">Reuse general model, adapt to a new task cheaply.</span></div>
+      <div class="row"><span class="k">vs Prompting/RAG</span><span class="v">Those change input only; fine-tuning changes the model.</span></div>
+      <div class="row"><span class="k">Use it for</span><span class="v">Consistent style/format, domain behaviour, lower per-call cost.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Fine-tuning vs RAG — when do you pick which?</summary><div class="ans"><p>Use <strong>RAG</strong> when the need is up-to-date or large external <em>knowledge</em> — it injects facts at query time without retraining and is easy to update. Use <strong>fine-tuning</strong> when you need to change <em>behaviour, style, or format</em> consistently, or specialize on a task. They're complementary: fine-tune for <em>how</em> to respond, RAG for <em>what</em> facts to use. Often you do both.</p></div></details>
+      <details><summary>What is catastrophic forgetting?</summary><div class="ans"><p>When fine-tuning on new data causes a model to <strong>lose previously learned capabilities</strong>, because the weights shift too far toward the new task. Mitigations include lower learning rates, mixing in original-style data, and parameter-efficient methods like LoRA that touch only a small part of the model.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- RAG -->
+<article class="topic" id="rag" data-lv="inter" data-keys="rag retrieval augmented generation grounding knowledge base vector search chunks citations hallucination context">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-09 · giving the model facts</span>
+      <h3>Retrieval-Augmented Generation (RAG)</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p><strong>RAG</strong> lets a model answer using knowledge it wasn't trained on, without retraining. The flow: take the user's question, <strong>retrieve</strong> the most relevant documents from a knowledge base (usually via embedding similarity in a vector database), and <strong>inject</strong> those passages into the prompt so the model <strong>generates</strong> a grounded answer.</p>
+      <p>It directly attacks two LLM weaknesses: <strong>stale knowledge</strong> (the model's training has a cutoff) and <strong>hallucination</strong> (grounding answers in real retrieved text, often with citations). A typical pipeline: chunk documents → embed them → store in a vector DB → at query time, embed the question, find nearest chunks, and pass them to the model.</p>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="RAG pipeline from question to grounded answer">
+  <defs><marker id="ahr" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a88a8"/></marker></defs>
+  <rect x="30" y="40" width="92" height="42" rx="8" fill="#d6f3ee" stroke="#0a9f8a"/><text x="76" y="66" text-anchor="middle" font-size="11.5" fill="#0a7a6a" font-family="'JetBrains Mono',monospace">question</text>
+  <rect x="160" y="40" width="80" height="42" rx="8" fill="#f6f7fb" stroke="#c9cbe0"/><text x="200" y="66" text-anchor="middle" font-size="11.5" fill="#41415c" font-family="'JetBrains Mono',monospace">embed</text>
+  <path d="M300 38 a40 9 0 0 0 80 0 v44 a40 9 0 0 1 -80 0 z" fill="#ece9ff" stroke="#6d5bff"/>
+  <ellipse cx="340" cy="38" rx="40" ry="9" fill="#ece9ff" stroke="#6d5bff"/>
+  <text x="340" y="66" text-anchor="middle" font-size="10.5" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">vector DB</text>
+  <rect x="420" y="40" width="100" height="42" rx="8" fill="#ece9ff" stroke="#6d5bff"/><text x="470" y="60" text-anchor="middle" font-size="10.5" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">top-k</text><text x="470" y="73" text-anchor="middle" font-size="10.5" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">chunks</text>
+  <line x1="122" y1="61" x2="158" y2="61" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahr)"/>
+  <line x1="240" y1="61" x2="298" y2="61" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahr)"/>
+  <line x1="380" y1="61" x2="418" y2="61" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahr)"/>
+  <line x1="470" y1="82" x2="470" y2="150" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahr)"/>
+  <rect x="330" y="150" width="170" height="46" rx="8" fill="#14122B"/><text x="415" y="170" text-anchor="middle" font-size="10.5" fill="#fff" font-family="'JetBrains Mono',monospace">prompt + chunks</text><text x="415" y="184" text-anchor="middle" font-size="10.5" fill="#9b91ee" font-family="'JetBrains Mono',monospace">&#8594; LLM</text>
+  <line x1="330" y1="173" x2="250" y2="173" stroke="#8a88a8" stroke-width="1.6" marker-end="url(#ahr)"/>
+  <rect x="60" y="150" width="170" height="46" rx="8" fill="#d6f3ee" stroke="#0a9f8a"/><text x="145" y="170" text-anchor="middle" font-size="11" fill="#0a7a6a" font-family="'JetBrains Mono',monospace">grounded answer</text><text x="145" y="184" text-anchor="middle" font-size="9.5" fill="#0a9f8a" font-family="'JetBrains Mono',monospace">+ citations</text>
+  <text class="dl" x="540" y="65" font-size="9.5">retrieve</text>
+  <text class="dl" x="330" y="232" text-anchor="middle" font-size="10.5">index docs offline &#183; retrieve &amp; inject at query time &#183; generate from real sources</text>
+</svg>
+      <figcaption>RAG fetches relevant chunks from a vector store and feeds them to the LLM so answers stay grounded.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">RAG</span><span class="v">Retrieve relevant docs → put in prompt → model answers from them.</span></div>
+      <div class="row"><span class="k">Pipeline</span><span class="v">Chunk → embed → store → retrieve nearest → generate.</span></div>
+      <div class="row"><span class="k">Solves</span><span class="v">Stale/limited knowledge & hallucination; enables citations.</span></div>
+      <div class="row"><span class="k">No retraining</span><span class="v">Update the knowledge base, not the weights.</span></div>
+      <div class="row"><span class="k">Quality hinges on</span><span class="v">Retrieval. Bad chunks in → bad answer out.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Walk me through a basic RAG pipeline.</summary><div class="ans"><p><strong>Indexing (offline):</strong> split documents into chunks, create an embedding for each, store them in a vector database. <strong>Query time:</strong> embed the user's question, retrieve the top-k most similar chunks, insert them into the prompt as context, and have the LLM generate an answer grounded in those chunks — ideally with citations back to the sources.</p></div></details>
+      <details><summary>RAG gives a wrong answer. Where do you look first?</summary><div class="ans"><p>Usually <strong>retrieval, not generation</strong>. Check whether the right chunks were even retrieved: bad chunking, weak embeddings, a too-small top-k, or no relevant document in the store all starve the model of correct context. If the right context was retrieved but the answer is still wrong, then look at the prompt and the model.</p></div></details>
+      <details><summary>Why chunk documents instead of embedding whole files?</summary><div class="ans"><p>Because retrieval needs to return <strong>focused, relevant passages</strong> that fit in the context window. A whole document's embedding blurs many topics into one vector, hurting match precision and wasting context on irrelevant text. Sensible chunk sizes (often with overlap) keep each vector semantically tight.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Hallucination -->
+<article class="topic" id="hallucination" data-lv="inter" data-keys="hallucination confident wrong factual accuracy grounding rag verification confabulation reliability trust">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-10 · the trust problem</span>
+      <h3>Hallucination</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p><strong>Hallucination</strong> is when a model produces confident, fluent output that is factually wrong or fabricated — invented citations, made-up APIs, false dates. It's not a bug so much as a side-effect of how LLMs work: they're trained to generate <em>plausible</em> text, and plausibility doesn't guarantee truth.</p>
+      <p>It worsens when the model is asked about things outside its training, niche facts, or specifics it never reliably learned. Key mitigations: <strong>grounding</strong> answers with retrieval (RAG), prompting for <strong>citations</strong> and <strong>uncertainty</strong>, letting the model say "I don't know," using tools to verify, and human review for high-stakes use.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">What</span><span class="v">Confident output that's false or fabricated.</span></div>
+      <div class="row"><span class="k">Why</span><span class="v">Models optimize for plausible text, not verified truth.</span></div>
+      <div class="row"><span class="k">Worse when</span><span class="v">Niche facts, recent events, exact figures, things untrained.</span></div>
+      <div class="row"><span class="k">Reduce with</span><span class="v">RAG grounding · citations · "I don't know" · tools · review.</span></div>
+      <div class="row"><span class="k">Can't fully</span><span class="v">eliminate — design systems assuming it can occur.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Can hallucination be completely eliminated?</summary><div class="ans"><p>Not entirely with current LLMs — it's intrinsic to generating probable text. You can <strong>substantially reduce</strong> it (grounding with RAG, verification tools, lower temperature, asking for citations) and <strong>contain</strong> it (human review, refusing when unsure), but a responsible system is designed assuming hallucinations <em>can</em> happen, especially in high-stakes domains.</p></div></details>
+      <details><summary>How does RAG reduce hallucination but not remove it?</summary><div class="ans"><p>RAG gives the model <strong>real retrieved text to ground its answer</strong>, so it relies less on shaky parametric memory. But the model can still <strong>misread, over-generalize, or ignore</strong> the retrieved context, and if retrieval returns nothing relevant, it may fall back to guessing. Grounding lowers the rate; it doesn't guarantee truth.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Evaluation -->
+<article class="topic" id="evaluation" data-lv="inter" data-keys="evaluation metrics accuracy precision recall f1 perplexity benchmark bleu rouge human eval llm judge">
+  <header>
+    <div style="flex:1">
+      <span class="label">CORE-11 · how good is it, really</span>
+      <h3>Evaluation Metrics</h3>
+    </div>
+    <span class="pill inter">Intermediate</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>You can't improve what you can't measure. For <strong>classification</strong>, the staples are <strong>accuracy</strong> (overall correct), <strong>precision</strong> (of predicted positives, how many were right), <strong>recall</strong> (of actual positives, how many were caught), and <strong>F1</strong> (their harmonic mean). Which one matters depends on the cost of false positives vs false negatives.</p>
+      <p>For <strong>generative</strong> models, evaluation is harder because there's no single right answer. Approaches include <strong>perplexity</strong> (how well the model predicts held-out text), overlap metrics like BLEU/ROUGE (for translation/summarization), <strong>benchmarks</strong> (standardized test suites), <strong>human evaluation</strong>, and increasingly <strong>LLM-as-judge</strong> (using a capable model to score outputs).</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Accuracy</span><span class="v">% correct. Misleading on imbalanced data.</span></div>
+      <div class="row"><span class="k">Precision</span><span class="v">Of flagged positives, how many were truly positive.</span></div>
+      <div class="row"><span class="k">Recall</span><span class="v">Of all true positives, how many you caught.</span></div>
+      <div class="row"><span class="k">F1</span><span class="v">Harmonic mean of precision & recall. Balances both.</span></div>
+      <div class="row"><span class="k">Generative</span><span class="v">Perplexity · BLEU/ROUGE · benchmarks · human · LLM-judge.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Why is accuracy a bad metric for rare-event detection (e.g. fraud)?</summary><div class="ans"><p>With heavy class imbalance, a model can hit <strong>99% accuracy by always predicting "not fraud"</strong> while catching zero actual fraud. Accuracy hides this. <strong>Precision, recall, and F1</strong> (or PR-AUC) reveal whether the rare positive class is actually being detected.</p></div></details>
+      <details><summary>When do you optimize for recall over precision?</summary><div class="ans"><p>When <strong>missing a positive is costlier than a false alarm</strong> — e.g. cancer screening or fraud detection, where you'd rather flag some false positives than let a real case slip through. Optimize for precision when false alarms are expensive or annoying, like a spam filter blocking real email.</p></div></details>
+      <details><summary>What is perplexity, intuitively?</summary><div class="ans"><p>It measures <strong>how "surprised" the model is by real text</strong> — roughly, the average number of equally-likely choices it's deciding among at each token. Lower perplexity means the model predicts the next token more confidently and accurately. It evaluates language modelling quality, not task correctness.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- ================= ADVANCED ================= -->
+<div class="group-head"><span class="num">03</span><h2>Advanced &amp; Systems</h2><span class="line"></span></div>
+<p class="group-sub">Production techniques, model internals, and the agentic frontier — where senior interviews go.</p>
+
+<!-- RLHF -->
+<article class="topic" id="rlhf" data-lv="adv" data-keys="rlhf reinforcement learning human feedback alignment reward model preference dpo ppo helpful harmless">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-01 · making models helpful & safe</span>
+      <h3>RLHF &amp; Alignment</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>A pre-trained LLM predicts text but isn't naturally helpful, honest, or safe. <strong>Alignment</strong> is the process of getting a model to behave the way humans want. The dominant technique has been <strong>RLHF — Reinforcement Learning from Human Feedback</strong>.</p>
+      <p>RLHF works in stages: collect human <strong>preferences</strong> (people rank or compare model outputs), train a <strong>reward model</strong> to predict those preferences, then use reinforcement learning (e.g. PPO) to update the LLM so it produces outputs the reward model scores highly. Newer methods like <strong>DPO</strong> (Direct Preference Optimization) skip the separate reward model and optimize on preference pairs directly. The goal is a model that's helpful, harmless, and honest.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Alignment</span><span class="v">Getting model behaviour to match human intent/values.</span></div>
+      <div class="row"><span class="k">RLHF steps</span><span class="v">Collect preferences → train reward model → RL-tune the LLM.</span></div>
+      <div class="row"><span class="k">Reward model</span><span class="v">Learns to score outputs the way humans would rank them.</span></div>
+      <div class="row"><span class="k">DPO</span><span class="v">Optimizes preference pairs directly, no separate reward model.</span></div>
+      <div class="row"><span class="k">Goal</span><span class="v">Helpful · harmless · honest assistant behaviour.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Why isn't a pre-trained model directly useful as an assistant?</summary><div class="ans"><p>Because it only learned to <strong>continue text</strong>, not to follow instructions or be helpful. Ask it a question and it might respond with more questions or unsafe content, simply because that's a probable continuation. Instruction-tuning and RLHF reshape it to respond as a cooperative, safe assistant.</p></div></details>
+      <details><summary>What is reward hacking in RLHF?</summary><div class="ans"><p>When the model learns to <strong>maximize the reward-model score without genuinely satisfying the human intent</strong> — e.g. becoming verbose, sycophantic, or confidently formatted because the reward model over-rewards those traits. It's a case of optimizing the proxy (reward model) instead of the true goal, which is why reward models and evaluation need care.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- PEFT / LoRA / Quantization -->
+<article class="topic" id="peft" data-lv="adv" data-keys="peft lora quantization efficient fine-tuning adapters memory gpu int8 int4 compression parameter">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-02 · doing more with less compute</span>
+      <h3>PEFT, LoRA &amp; Quantization</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>Full fine-tuning of a large model means updating <em>all</em> its parameters — huge memory and cost. <strong>PEFT (Parameter-Efficient Fine-Tuning)</strong> updates only a tiny fraction instead. <strong>LoRA</strong> is the popular method: it freezes the original weights and trains small low-rank "adapter" matrices, so you tune millions of parameters instead of billions, and can swap adapters per task.</p>
+      <p><strong>Quantization</strong> attacks the other cost — running the model. It stores weights in lower precision (e.g. 16-bit → 8-bit or 4-bit integers), shrinking memory and speeding inference, usually with minor accuracy loss. Together, LoRA + quantization (e.g. "QLoRA") let people fine-tune and serve large models on modest hardware.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">PEFT</span><span class="v">Fine-tune a small subset of params, not all of them.</span></div>
+      <div class="row"><span class="k">LoRA</span><span class="v">Freeze base weights; train small low-rank adapters. Swappable.</span></div>
+      <div class="row"><span class="k">Quantization</span><span class="v">Lower-precision weights (8/4-bit) → less memory, faster, minor loss.</span></div>
+      <div class="row"><span class="k">QLoRA</span><span class="v">Quantized base + LoRA → fine-tune big models on small GPUs.</span></div>
+      <div class="row"><span class="k">Why care</span><span class="v">Cost, memory, and deployability — not just accuracy.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>How does LoRA cut fine-tuning cost so dramatically?</summary><div class="ans"><p>It <strong>freezes the original weights</strong> and injects small <strong>low-rank matrices</strong> whose product approximates the needed weight update. You only train those tiny matrices — often well under 1% of the parameters — so memory and compute drop sharply, and the adapters are small files you can store and swap per task.</p></div></details>
+      <details><summary>What's the tradeoff with quantization?</summary><div class="ans"><p>Lower precision means <strong>less memory and faster inference</strong>, but some <strong>accuracy/quality loss</strong> from rounding. Modern techniques (8-bit, careful 4-bit) keep the loss small for most tasks, but very aggressive quantization can degrade quality, so you validate on your actual workload.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Agents -->
+<article class="topic" id="agents" data-lv="adv" data-keys="agent tool use react planning autonomy loop function calling reasoning acting orchestration multi-agent">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-03 · models that act</span>
+      <h3>AI Agents &amp; Tool Use</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>An <strong>agent</strong> uses an LLM as a reasoning engine inside a <strong>loop</strong> to accomplish goals that take multiple steps. Rather than answering once, it can <strong>plan</strong>, choose to call a <strong>tool</strong> (web search, code execution, a database, an API), <strong>observe</strong> the result, and decide what to do next — repeating until done. This is often described as a reason-and-act cycle.</p>
+      <p><strong>Tool use / function calling</strong> is the mechanism: the model emits a structured request to call a function, the system runs it, and feeds the result back into the context. Agents add <strong>memory</strong> (to persist state), <strong>planning</strong> (to break down tasks), and sometimes multiple cooperating agents. The hard parts are reliability, knowing when to stop, and recovering from errors that compound across steps.</p>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Agent loop: plan, act, observe around an LLM core">
+  <defs><marker id="aha" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#8a88a8"/></marker></defs>
+  <circle cx="300" cy="130" r="48" fill="#14122B"/><text x="300" y="126" text-anchor="middle" font-size="13" fill="#fff" font-family="'Space Grotesk',sans-serif" font-weight="600">LLM</text><text x="300" y="144" text-anchor="middle" font-size="9.5" fill="#9b91ee" font-family="'JetBrains Mono',monospace">reason</text>
+  <rect x="240" y="20" width="120" height="40" rx="8" fill="#d6f3ee" stroke="#0a9f8a"/><text x="300" y="45" text-anchor="middle" font-size="12" fill="#0a7a6a" font-family="'JetBrains Mono',monospace">plan</text>
+  <rect x="470" y="110" width="140" height="40" rx="8" fill="#ece9ff" stroke="#6d5bff"/><text x="540" y="135" text-anchor="middle" font-size="12" fill="#4a3fb8" font-family="'JetBrains Mono',monospace">act &#183; call tool</text>
+  <rect x="240" y="200" width="120" height="40" rx="8" fill="#fbeed2" stroke="#d98a00"/><text x="300" y="225" text-anchor="middle" font-size="12" fill="#9a6200" font-family="'JetBrains Mono',monospace">observe</text>
+  <path d="M348 45 C430 50, 470 90, 505 108" fill="none" stroke="#8a88a8" stroke-width="1.8" marker-end="url(#aha)"/>
+  <path d="M520 150 C470 195, 400 205, 362 215" fill="none" stroke="#8a88a8" stroke-width="1.8" marker-end="url(#aha)"/>
+  <path d="M240 220 C150 210, 150 70, 252 45" fill="none" stroke="#8a88a8" stroke-width="1.8" marker-end="url(#aha)"/>
+  <text class="dl" x="300" y="256" text-anchor="middle" font-size="10.5">loop until the goal is met &#8594; then return the answer</text>
+</svg>
+      <figcaption>An agent wraps the model in a loop: plan a step, act with a tool, observe, and repeat.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Agent loop</span><span class="v">Plan → act (tool) → observe → repeat → finish.</span></div>
+      <div class="row"><span class="k">Tool / fn calling</span><span class="v">Model outputs a structured call; system runs it, returns result.</span></div>
+      <div class="row"><span class="k">Adds</span><span class="v">Memory, planning, tools, sometimes multi-agent collaboration.</span></div>
+      <div class="row"><span class="k">vs Chatbot</span><span class="v">Chatbot answers once; agent takes actions toward a goal.</span></div>
+      <div class="row"><span class="k">Hard parts</span><span class="v">Reliability, error compounding, stopping conditions, cost.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>How does function calling actually work under the hood?</summary><div class="ans"><p>You describe available tools (name, purpose, parameters) to the model. When it decides a tool is needed, it outputs a <strong>structured call</strong> (e.g. JSON with the function name and arguments) instead of a normal answer. Your application <strong>executes that function</strong>, then feeds the result back into the context so the model can continue reasoning with it.</p></div></details>
+      <details><summary>Why are agents harder to make reliable than single LLM calls?</summary><div class="ans"><p>Because <strong>errors compound over steps</strong> — a wrong decision early derails everything after it. Agents also depend on external tools that can fail, must decide <em>when</em> to act and <em>when</em> they're finished, and can loop or run up cost. Mitigations: guardrails, step limits, validation of tool outputs, retries, and human-in-the-loop for risky actions.</p></div></details>
+      <details><summary>What's the difference between RAG and an agent that searches?</summary><div class="ans"><p>Basic <strong>RAG</strong> is a fixed one-shot retrieve-then-answer pipeline. An <strong>agent</strong> decides <em>dynamically</em> whether to search, can search multiple times, refine its queries based on what it finds, and combine tools. RAG is a step; an agent can orchestrate retrieval as one of many actions in a loop.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- MCP -->
+<article class="topic" id="mcp" data-lv="adv" data-keys="mcp model context protocol tools connectors standard integration server client anthropic interoperability usb">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-04 · the connector standard</span>
+      <h3>Model Context Protocol (MCP)</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p><strong>MCP (Model Context Protocol)</strong> is an open standard for connecting AI applications to external tools and data sources in a uniform way. The problem it solves: before a standard, every integration between an AI app and a service (Slack, a database, GitHub) was custom-built — an N×M explosion of one-off connectors.</p>
+      <p>MCP defines a common client–server interface so any compliant AI app (the <strong>client/host</strong>) can talk to any compliant <strong>MCP server</strong> that exposes tools, resources, or prompts. The common analogy is "a USB-C port for AI": one standard plug instead of a different cable for every device. It makes agent tool ecosystems interoperable and reusable.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">MCP</span><span class="v">Open standard for AI apps to connect to tools & data.</span></div>
+      <div class="row"><span class="k">Solves</span><span class="v">N×M custom-integration problem → one shared protocol.</span></div>
+      <div class="row"><span class="k">Roles</span><span class="v">Host/client (the AI app) ↔ MCP server (exposes tools/data).</span></div>
+      <div class="row"><span class="k">Exposes</span><span class="v">Tools (actions), resources (data), prompts.</span></div>
+      <div class="row"><span class="k">Analogy</span><span class="v">"USB-C for AI" — one standard plug for everything.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>What problem does MCP solve?</summary><div class="ans"><p>The <strong>integration explosion</strong>. Without a standard, connecting M AI applications to N tools needs up to M×N bespoke integrations. MCP provides one common protocol so any client and any server speak the same language — write a tool server once and any MCP-compatible app can use it, and vice versa.</p></div></details>
+      <details><summary>How does MCP relate to function calling?</summary><div class="ans"><p>Function calling is the <strong>model-level ability</strong> to request a tool. MCP is the <strong>standardized transport and interface</strong> for where those tools live and how the app discovers and invokes them. MCP can supply the catalog of tools that the model then calls — they operate at different layers and complement each other.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Multimodal -->
+<article class="topic" id="multimodal" data-lv="adv" data-keys="multimodal vision image audio video modality fusion clip text-to-image encoder cross-modal">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-05 · beyond text</span>
+      <h3>Multimodal Models</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p><strong>Multimodal</strong> models handle more than one type of data — text, images, audio, video — often together. A vision-language model can look at an image and answer questions about it; others generate images from text or transcribe speech.</p>
+      <p>The common trick is to project each modality into a <strong>shared representation space</strong> (shared embeddings), so the model can reason across them. Images, for instance, get encoded into tokens/embeddings that sit alongside text tokens in the same Transformer. This is what enables "describe this photo," "read this chart," or "generate an image of…" in a single system.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Multimodal</span><span class="v">Works across text, image, audio, video.</span></div>
+      <div class="row"><span class="k">Key idea</span><span class="v">Map every modality into a shared embedding space.</span></div>
+      <div class="row"><span class="k">Vision-language</span><span class="v">Encode image → tokens beside text → reason jointly.</span></div>
+      <div class="row"><span class="k">Examples</span><span class="v">Image Q&A, chart reading, text-to-image, speech-to-text.</span></div>
+      <div class="row"><span class="k">Enables</span><span class="v">One model, many input/output types.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>How does a model "see" an image if Transformers process tokens?</summary><div class="ans"><p>An <strong>image encoder</strong> turns the image into a sequence of embeddings (e.g. by splitting it into patches and encoding each). Those embeddings are projected into the <strong>same space as text tokens</strong> and fed into the Transformer alongside the words, so the model attends over image and text jointly.</p></div></details>
+      <details><summary>What does "shared embedding space" buy you?</summary><div class="ans"><p>It lets the model relate <strong>different modalities by meaning</strong> — the embedding of the word "dog" and the embedding of a dog photo land near each other. That alignment is what enables cross-modal tasks like captioning, retrieval ("find images matching this text"), and answering questions about an image.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- MoE -->
+<article class="topic" id="moe" data-lv="adv" data-keys="mixture of experts moe sparse routing gating active parameters scaling efficiency expert">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-06 · scaling smartly</span>
+      <h3>Mixture of Experts (MoE)</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p><strong>Mixture of Experts</strong> is an architecture that grows a model's total parameters without proportionally growing its per-token compute. Instead of one big dense network, it has many "expert" sub-networks plus a <strong>router (gating network)</strong> that, for each token, activates only a small subset of experts.</p>
+      <p>So a model might have, say, hundreds of billions of <em>total</em> parameters but only activate a fraction per token. You get the capacity of a huge model at the inference cost of a much smaller one. The tradeoffs are higher memory (all experts must be stored) and engineering complexity around balanced routing.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">MoE</span><span class="v">Many expert sub-nets; a router picks a few per token.</span></div>
+      <div class="row"><span class="k">Sparse</span><span class="v">Total params huge, active params per token small.</span></div>
+      <div class="row"><span class="k">Win</span><span class="v">Big-model capacity at smaller-model compute cost.</span></div>
+      <div class="row"><span class="k">Cost</span><span class="v">High memory (store all experts) + routing complexity.</span></div>
+      <div class="row"><span class="k">Term</span><span class="v">"Active parameters" ≠ "total parameters."</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Why does MoE separate "total" from "active" parameters?</summary><div class="ans"><p>Because only a <strong>subset of experts fires per token</strong>. Total parameters set the model's overall capacity/memory, while active parameters determine the <strong>compute per token</strong>. MoE decouples these so you can scale capacity cheaply — more knowledge without proportionally more flops at inference.</p></div></details>
+      <details><summary>What's a key challenge in training MoE models?</summary><div class="ans"><p><strong>Load balancing the router.</strong> If the gating network sends most tokens to a few favourite experts, the others go undertrained and capacity is wasted. Training uses auxiliary balancing losses to spread tokens across experts. Memory and distributed-systems complexity are the other big challenges.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Inference optimization -->
+<article class="topic" id="inference-opt" data-lv="adv" data-keys="inference optimization kv cache batching latency throughput speculative decoding flash attention serving cost streaming">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-07 · serving fast & cheap</span>
+      <h3>Inference Optimization</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>Because inference happens constantly, making it fast and cheap is a core production concern. Key levers: the <strong>KV cache</strong> stores the keys/values of past tokens so the model doesn't recompute them each step (essential for generation speed). <strong>Batching</strong> serves many requests together to maximize GPU utilization. <strong>Quantization</strong> shrinks the model. <strong>Speculative decoding</strong> uses a small draft model to propose tokens that the big model verifies in bulk.</p>
+      <p>Two metrics matter: <strong>latency</strong> (how fast one user gets a response, often split into time-to-first-token and per-token speed) and <strong>throughput</strong> (total tokens served across all users). Optimizations usually trade one against the other.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">KV cache</span><span class="v">Reuse past tokens' keys/values; avoids recompute each step.</span></div>
+      <div class="row"><span class="k">Batching</span><span class="v">Group requests → higher GPU throughput.</span></div>
+      <div class="row"><span class="k">Speculative dec.</span><span class="v">Small model drafts, big model verifies → faster.</span></div>
+      <div class="row"><span class="k">Quantization</span><span class="v">Lower precision → less memory, faster.</span></div>
+      <div class="row"><span class="k">Metrics</span><span class="v">Latency (TTFT, tok/s) vs throughput (total tok/s). Trade-off.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>What is the KV cache and why is it essential?</summary><div class="ans"><p>During autoregressive generation, each new token attends to all previous tokens. Without caching, the model would <strong>recompute every previous token's key and value vectors at every step</strong> — wildly wasteful. The <strong>KV cache</strong> stores them so each step only computes the new token, turning generation from quadratic-ish waste into a manageable cost. Its size grows with context length, which is a memory consideration.</p></div></details>
+      <details><summary>Latency vs throughput — how can they conflict?</summary><div class="ans"><p>Large <strong>batching</strong> boosts throughput (more total tokens/sec across users) by filling the GPU, but an individual request may wait to be batched, raising its <strong>latency</strong>. Serving systems tune batch size and scheduling to balance a single user's responsiveness against overall efficiency and cost.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- Safety / prompt injection -->
+<article class="topic" id="safety" data-lv="adv" data-keys="safety guardrails prompt injection jailbreak adversarial security data leakage moderation red teaming alignment">
+  <header>
+    <div style="flex:1">
+      <span class="label">ADV-08 · keeping it safe in production</span>
+      <h3>Guardrails, Prompt Injection &amp; Safety</h3>
+    </div>
+    <span class="pill adv">Advanced</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>Putting an LLM in front of users introduces security and safety risks unique to natural-language systems. <strong>Prompt injection</strong> is the headline threat: malicious instructions hidden in user input — or in content the model retrieves (a webpage, a document) — hijack the model into ignoring its original instructions. <strong>Jailbreaks</strong> are prompts crafted to bypass safety rules.</p>
+      <p><strong>Guardrails</strong> are the defensive layers: input/output filtering and moderation, restricting tool permissions, separating trusted instructions from untrusted data, validating outputs, and limiting what actions an agent can take autonomously. There's no single fix, so defense-in-depth and <strong>red-teaming</strong> (actively trying to break your own system) are standard practice.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cheat">
+      <div class="ct">quick recall</div>
+      <div class="row"><span class="k">Prompt injection</span><span class="v">Hidden instructions in input/retrieved data hijack the model.</span></div>
+      <div class="row"><span class="k">Jailbreak</span><span class="v">Prompt that bypasses safety rules.</span></div>
+      <div class="row"><span class="k">Guardrails</span><span class="v">Filtering, moderation, output validation, least-privilege tools.</span></div>
+      <div class="row"><span class="k">Key principle</span><span class="v">Treat retrieved/user content as untrusted; isolate instructions.</span></div>
+      <div class="row"><span class="k">Practice</span><span class="v">Defense-in-depth + red-teaming. No single silver bullet.</span></div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>What is indirect prompt injection?</summary><div class="ans"><p>When the malicious instruction isn't typed by the user but <strong>embedded in content the model ingests</strong> — a web page it browses, a document in a RAG store, an email it summarizes. The model can't easily tell "data" from "instructions," so hidden text like "ignore previous instructions and…" can hijack it. It's especially dangerous for agents with tools.</p></div></details>
+      <details><summary>How do you defend an agent that can take real actions?</summary><div class="ans"><p>Apply <strong>least privilege</strong> (only the tools/permissions it truly needs), <strong>human approval</strong> for high-impact actions, <strong>validate and sandbox</strong> tool inputs/outputs, separate trusted system instructions from untrusted data, add input/output <strong>moderation</strong>, and continuously <strong>red-team</strong>. Assume injection will be attempted and limit the blast radius rather than relying on the model to always refuse.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- ================= COMPARISONS ================= -->
+<div class="group-head"><span class="num">04</span><h2>Side-by-Side</h2><span class="line"></span></div>
+<p class="group-sub">The "what's the difference between X and Y" questions interviewers love — because the words get confused constantly. Nail the distinction and you sound senior.</p>
+
+<!-- CMP: Prompt engineering vs tuning vs fine-tuning -->
+<article class="topic" id="pe-vs-pt" data-lv="cmp" data-keys="prompt engineering prompt tuning fine-tuning soft prompts difference vs comparison backpropagation weights peft adaptation">
+  <header>
+    <div style="flex:1">
+      <span class="label">VS-01 · three ways to adapt a model</span>
+      <h3>Prompt Engineering vs. Prompt Tuning vs. Fine-tuning</h3>
+    </div>
+    <span class="pill cmp">vs</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>All three adapt a model to your task, but they touch <strong>different things</strong>. The trap is that "prompt engineering" and "prompt tuning" sound identical and are constantly confused — they are not the same.</p>
+      <p><strong>Prompt engineering</strong> changes only the <em>text you send</em>. No training, no weights touched, works on any model through plain language — you craft instructions, examples, and structure. <strong>Prompt tuning</strong> is a lightweight <em>training</em> method: it keeps the model frozen but learns a small set of <strong>"soft prompts"</strong> — continuous vectors prepended to the input, optimized via backpropagation on labelled data. They aren't human-readable words; they're learned embeddings. <strong>Fine-tuning</strong> goes further and updates the model's actual weights (fully, or efficiently via LoRA).</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cmp-wrap">
+      <div class="cmp three">
+        <div class="crow chead"><div>aspect</div><div>Prompt Engineering</div><div>Prompt Tuning</div><div>Fine-tuning</div></div>
+        <div class="crow"><div>What changes</div><div>The input text only</div><div>Small learned "soft prompt" vectors</div><div>The model's weights</div></div>
+        <div class="crow"><div>Training?</div><div>None</div><div>Yes (lightweight)</div><div>Yes (heavy / or LoRA)</div></div>
+        <div class="crow"><div>Labelled data</div><div>No</div><div>Yes</div><div>Yes</div></div>
+        <div class="crow"><div>Human-readable</div><div>Yes — it's words</div><div>No — learned vectors</div><div>N/A (weights)</div></div>
+        <div class="crow"><div>Cost / skill</div><div>Lowest, anyone</div><div>Low–medium, ML setup</div><div>Highest, GPUs + data</div></div>
+        <div class="crow"><div>Use when</div><div>Quick wins, flexible</div><div>Per-task specialization</div><div>Deep, consistent behaviour</div></div>
+      </div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>People use "prompt tuning" and "prompt engineering" interchangeably. Correct them.</summary><div class="ans"><p><strong>Prompt engineering is not training</strong> — you only rewrite the input text, treating the model as a black box. <strong>Prompt tuning is training</strong>: the model stays frozen, but you learn small continuous <strong>soft-prompt vectors</strong> via backpropagation on labelled examples. One is manual wording; the other is a parameter-efficient fine-tuning technique that produces non-human-readable learned prompts.</p></div></details>
+      <details><summary>Where does prompt tuning sit relative to LoRA?</summary><div class="ans"><p>Both are <strong>parameter-efficient fine-tuning (PEFT)</strong> methods that freeze the base model. <strong>Prompt tuning</strong> learns extra input vectors (soft prompts) and changes nothing inside the network; <strong>LoRA</strong> learns small low-rank updates to the model's internal weight matrices. LoRA generally adapts behaviour more deeply; prompt tuning is even lighter.</p></div></details>
+      <details><summary>Cheapest to most expensive — order them and say why.</summary><div class="ans"><p><strong>Prompt engineering → prompt tuning → fine-tuning.</strong> Prompt engineering needs no training or data. Prompt tuning trains only a tiny set of soft-prompt parameters on labelled data. Full fine-tuning updates all (or, with LoRA, a meaningful subset of) weights and needs the most data, compute, and expertise.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- CMP: LLM vs RAG vs fine-tuning -->
+<article class="topic" id="llm-vs-rag" data-lv="cmp" data-keys="llm vs rag difference fine-tuning grounding knowledge external retrieval comparison when to use what">
+  <header>
+    <div style="flex:1">
+      <span class="label">VS-02 · the grounding question</span>
+      <h3>LLM vs. RAG vs. Fine-tuning</h3>
+    </div>
+    <span class="pill cmp">vs</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>"LLM vs RAG" is a slightly unfair comparison — and saying so is the smart answer. An <strong>LLM</strong> is the model; <strong>RAG</strong> is a technique <em>you wrap around</em> an LLM. A plain LLM answers purely from what it memorized during training (limited by its knowledge cutoff). <strong>RAG</strong> adds a retrieval step that fetches relevant external documents and feeds them into the prompt, so the LLM answers from <em>current, specific, sourced</em> knowledge.</p>
+      <p>The real decision is usually <strong>RAG vs fine-tuning</strong>: do you need new <em>knowledge</em> or new <em>behaviour</em>? RAG injects facts at query time (easy to update, supports citations, no retraining). Fine-tuning changes how the model responds (style, format, task) by altering weights. They're complementary — many systems use a fine-tuned model <em>with</em> RAG.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cmp-wrap">
+      <div class="cmp three">
+        <div class="crow chead"><div>aspect</div><div>Plain LLM</div><div>RAG</div><div>Fine-tuning</div></div>
+        <div class="crow"><div>Adds</div><div>Nothing extra</div><div>External knowledge</div><div>New behaviour/style</div></div>
+        <div class="crow"><div>Knowledge from</div><div>Frozen weights only</div><div>Live document store</div><div>Baked into weights</div></div>
+        <div class="crow"><div>Update facts</div><div>Retrain whole model</div><div>Edit the database</div><div>Retrain / re-tune</div></div>
+        <div class="crow"><div>Citations</div><div>No</div><div>Yes (from sources)</div><div>No</div></div>
+        <div class="crow"><div>Best for</div><div>General tasks</div><div>Fresh / private facts</div><div>Consistent format, domain</div></div>
+        <div class="crow"><div>Cutoff problem</div><div>Suffers from it</div><div>Solves it</div><div>Still has one</div></div>
+      </div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>"What's the difference between an LLM and RAG?"</summary><div class="ans"><p>They're not alternatives at the same level. The <strong>LLM is the model</strong> that generates text from its trained parameters. <strong>RAG is an architecture around the LLM</strong> that retrieves relevant external documents and adds them to the prompt before generation. So RAG <em>uses</em> an LLM to produce answers grounded in fetched, up-to-date, sourceable information rather than memory alone.</p></div></details>
+      <details><summary>RAG or fine-tuning for a customer-support bot over your product docs?</summary><div class="ans"><p>Lead with <strong>RAG</strong>: product docs change often, you want answers grounded in the exact current docs, and you want citations — all of which RAG handles by updating the knowledge base, no retraining. Add <strong>fine-tuning</strong> only if you also need a consistent tone/format the prompt can't reliably enforce. In practice: RAG for the <em>knowledge</em>, optional light fine-tune for the <em>voice</em>.</p></div></details>
+      <details><summary>Can RAG and fine-tuning be combined?</summary><div class="ans"><p>Yes, and often they should. Fine-tune the model for <strong>how</strong> to behave (domain style, output structure, refusal patterns) and use RAG for <strong>what</strong> facts to ground in. They address different problems — behaviour vs knowledge — so they stack cleanly.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- CMP: Supervised vs unsupervised + algorithms -->
+<article class="topic" id="sup-vs-unsup" data-lv="cmp" data-keys="supervised unsupervised difference algorithms regression classification clustering dimensionality reduction labels problems types kmeans pca svm random forest reinforcement semi-supervised">
+  <header>
+    <div style="flex:1">
+      <span class="label">VS-03 · the ML fundamentals deep-dive</span>
+      <h3>Supervised vs. Unsupervised — Algorithms &amp; Problem Types</h3>
+    </div>
+    <span class="pill cmp">vs</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>The dividing line is one thing: <strong>are there labels (known target answers) in the training data?</strong></p>
+      <p><strong>Supervised learning</strong> has labelled data and learns to map inputs to those known outputs. It solves two problem types: <strong>classification</strong> (predict a category — spam/not-spam, disease/no-disease) and <strong>regression</strong> (predict a continuous number — house price, delivery time). <strong>Unsupervised learning</strong> has no labels; it finds hidden structure. Its main problem types are <strong>clustering</strong> (group similar points) and <strong>dimensionality reduction / association</strong> (compress features, find co-occurrence). Beyond these sit <strong>semi-supervised</strong> (a little labelled + lots of unlabelled) and <strong>reinforcement learning</strong> (learn from rewards).</p>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Supervised labelled points with a boundary versus unsupervised clusters">
+  <text x="165" y="28" text-anchor="middle" font-size="12.5" fill="#1ea672" font-family="'JetBrains Mono',monospace">SUPERVISED</text>
+  <text x="495" y="28" text-anchor="middle" font-size="12.5" fill="#d98a00" font-family="'JetBrains Mono',monospace">UNSUPERVISED</text>
+  <rect x="35" y="45" width="260" height="160" rx="10" fill="#fff" stroke="#e0e2ec"/>
+  <line x1="55" y1="195" x2="285" y2="70" stroke="#191830" stroke-width="1.6" stroke-dasharray="5 4"/>
+<circle cx="80" cy="90" r="6" fill="#6d5bff"/><circle cx="110" cy="75" r="6" fill="#6d5bff"/><circle cx="95" cy="120" r="6" fill="#6d5bff"/><circle cx="140" cy="95" r="6" fill="#6d5bff"/><circle cx="120" cy="140" r="6" fill="#6d5bff"/><polygon points="210,154 216,165 204,165" fill="#d94d6a"/><polygon points="245,134 251,145 239,145" fill="#d94d6a"/><polygon points="200,179 206,190 194,190" fill="#d94d6a"/><polygon points="255,169 261,180 249,180" fill="#d94d6a"/><polygon points="230,114 236,125 224,125" fill="#d94d6a"/>
+  <text class="dl" x="165" y="228" text-anchor="middle" font-size="10.5">labelled classes &#8594; learn a boundary</text>
+  <rect x="365" y="45" width="260" height="160" rx="10" fill="#fff" stroke="#e0e2ec"/>
+<circle cx="410" cy="90" r="6" fill="#9492ad"/><circle cx="435" cy="75" r="6" fill="#9492ad"/><circle cx="420" cy="115" r="6" fill="#9492ad"/><circle cx="455" cy="95" r="6" fill="#9492ad"/><circle cx="580" cy="150" r="6" fill="#9492ad"/><circle cx="560" cy="175" r="6" fill="#9492ad"/><circle cx="595" cy="165" r="6" fill="#9492ad"/><circle cx="575" cy="130" r="6" fill="#9492ad"/><circle cx="490" cy="185" r="6" fill="#9492ad"/><circle cx="510" cy="170" r="6" fill="#9492ad"/>
+  <ellipse cx="432" cy="95" rx="48" ry="42" fill="none" stroke="#d98a00" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <ellipse cx="578" cy="152" rx="42" ry="38" fill="none" stroke="#d98a00" stroke-width="1.4" stroke-dasharray="3 3"/>
+  <text class="dl" x="495" y="228" text-anchor="middle" font-size="10.5">no labels &#8594; discover clusters</text>
+</svg>
+      <figcaption>With labels you learn a decision boundary; without them you can only discover natural groupings.</figcaption>
+    </figure>
+    <div class="section-tab">Algorithm catalogue</div>
+    <div class="algo">
+      <div class="col">
+        <h5><span class="d" style="background:var(--basic)"></span>Supervised — has labels</h5>
+        <div class="sub">classification + regression</div>
+        <ul>
+          <li><b>Linear / Polynomial Regression</b> — predict continuous values</li>
+          <li><b>Logistic Regression</b> — binary/multi-class classification</li>
+          <li><b>Decision Tree</b> — splits on features; interpretable</li>
+          <li><b>Random Forest</b> — ensemble of trees; robust</li>
+          <li><b>Gradient Boosting / XGBoost</b> — strong tabular workhorse</li>
+          <li><b>SVM</b> — max-margin separating hyperplane</li>
+          <li><b>KNN</b> — classify by nearest labelled neighbours</li>
+          <li><b>Naive Bayes</b> — probabilistic, assumes independence</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5><span class="d" style="background:var(--inter)"></span>Unsupervised — no labels</h5>
+        <div class="sub">clustering + dim. reduction</div>
+        <ul>
+          <li><b>K-Means</b> — partition into k clusters by centroid</li>
+          <li><b>Hierarchical Clustering</b> — builds a dendrogram</li>
+          <li><b>DBSCAN</b> — density-based; finds odd shapes + noise</li>
+          <li><b>PCA</b> — reduce dimensions, keep variance</li>
+          <li><b>SVD / Factor Analysis</b> — latent structure</li>
+          <li><b>t-SNE / UMAP</b> — visualize high-dim data in 2-D</li>
+          <li><b>Apriori</b> — association rules (market basket)</li>
+          <li><b>Autoencoders</b> — learn compressed representations</li>
+        </ul>
+      </div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>What are the problem types under each, with one example?</summary><div class="ans"><p><strong>Supervised → classification</strong> (is this email spam?) and <strong>regression</strong> (what will this house sell for?). <strong>Unsupervised → clustering</strong> (segment customers into natural groups) and <strong>dimensionality reduction / association</strong> (compress 100 features to 10; "people who buy X also buy Y").</p></div></details>
+      <details><summary>You have data but no labels. What can you actually do?</summary><div class="ans"><p>Use <strong>unsupervised</strong> methods: cluster to discover segments (K-Means, DBSCAN), reduce dimensions to explore or visualize (PCA, UMAP), or mine associations. If labelling a <em>small</em> subset is feasible, <strong>semi-supervised</strong> learning lets a little labelled data guide the rest — common when labels are expensive.</p></div></details>
+      <details><summary>How do you choose between logistic regression and a random forest?</summary><div class="ans"><p>Start simple. <strong>Logistic regression</strong> is fast, interpretable, and strong when the relationship is roughly linear and you want explainability. <strong>Random forest / gradient boosting</strong> capture non-linear interactions and usually win on messy tabular data, at the cost of interpretability and tuning. Cross-validate both and let the validation metric — chosen for your error costs — decide.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- CMP: KNN vs K-Means -->
+<article class="topic" id="knn-vs-kmeans" data-lv="cmp" data-keys="knn k-means difference supervised unsupervised classification clustering lazy eager neighbours centroids trap">
+  <header>
+    <div style="flex:1">
+      <span class="label">VS-04 · the classic trap question</span>
+      <h3>KNN vs. K-Means</h3>
+    </div>
+    <span class="pill cmp">vs</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>They sound alike and both use "k" and distances, so interviewers love this one. They are completely different. <strong>KNN (k-nearest neighbours)</strong> is <strong>supervised</strong>: given <em>labelled</em> points, it classifies a new point by the majority label of its k closest neighbours. <strong>K-Means</strong> is <strong>unsupervised</strong>: given <em>unlabelled</em> points, it groups them into k clusters by iteratively moving cluster centroids.</p>
+      <p>The "k" means different things too: in KNN it's <em>how many neighbours vote</em>; in K-Means it's <em>how many clusters to form</em>. KNN is a "lazy" learner (no real training step — it just stores data); K-Means actually fits centroids during training.</p>
+    </div>
+        <div class="section-tab">Diagram</div>
+    <figure class="figure">
+      <svg viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KNN classifying a point by neighbours versus K-Means centroids">
+  <text x="165" y="28" text-anchor="middle" font-size="12.5" fill="#6d5bff" font-family="'JetBrains Mono',monospace">KNN &#183; supervised</text>
+  <text x="495" y="28" text-anchor="middle" font-size="12.5" fill="#0a9f8a" font-family="'JetBrains Mono',monospace">K-MEANS &#183; unsupervised</text>
+  <rect x="35" y="45" width="260" height="170" rx="10" fill="#fff" stroke="#e0e2ec"/>
+<circle cx="90" cy="90" r="6" fill="#6d5bff"/><circle cx="115" cy="75" r="6" fill="#6d5bff"/><circle cx="100" cy="120" r="6" fill="#6d5bff"/><circle cx="80" cy="150" r="6" fill="#6d5bff"/><polygon points="210,154 216,165 204,165" fill="#d94d6a"/><polygon points="235,174 241,185 229,185" fill="#d94d6a"/><polygon points="255,134 261,145 249,145" fill="#d94d6a"/><polygon points="225,194 231,205 219,205" fill="#d94d6a"/>
+  <circle cx="165" cy="135" r="42" fill="none" stroke="#9492ad" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <circle cx="165" cy="135" r="7" fill="#fff" stroke="#191830" stroke-width="1.6"/><text x="165" y="139" text-anchor="middle" font-size="9" font-family="'JetBrains Mono',monospace">?</text>
+  <text class="dl" x="165" y="238" text-anchor="middle" font-size="10.5">vote of k=3 nearest labelled points</text>
+  <rect x="365" y="45" width="260" height="170" rx="10" fill="#fff" stroke="#e0e2ec"/>
+<circle cx="420" cy="90" r="6" fill="#9492ad"/><circle cx="445" cy="80" r="6" fill="#9492ad"/><circle cx="430" cy="115" r="6" fill="#9492ad"/><circle cx="575" cy="150" r="6" fill="#9492ad"/><circle cx="555" cy="175" r="6" fill="#9492ad"/><circle cx="590" cy="160" r="6" fill="#9492ad"/>
+  <polygon points="432,95 437,107 449,107 439,114 443,126 432,118 421,126 425,114 415,107 427,107" fill="#0a9f8a"/>
+  <polygon points="575,160 580,172 592,172 582,179 586,191 575,183 564,191 568,179 558,172 570,172" fill="#0a9f8a"/>
+  <text class="dl" x="495" y="238" text-anchor="middle" font-size="10.5">k=2 learned centroids form clusters</text>
+</svg>
+      <figcaption>Same &quot;k&quot;, opposite jobs: KNN labels a point from neighbours; K-Means finds cluster centroids.</figcaption>
+    </figure>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cmp-wrap">
+      <div class="cmp two">
+        <div class="crow chead"><div>aspect</div><div>KNN</div><div>K-Means</div></div>
+        <div class="crow"><div>Type</div><div>Supervised</div><div>Unsupervised</div></div>
+        <div class="crow"><div>Task</div><div>Classification / regression</div><div>Clustering</div></div>
+        <div class="crow"><div>Needs labels</div><div>Yes</div><div>No</div></div>
+        <div class="crow"><div>What "k" is</div><div>No. of neighbours to vote</div><div>No. of clusters to form</div></div>
+        <div class="crow"><div>Training</div><div>Lazy — just stores data</div><div>Eager — learns centroids</div></div>
+        <div class="crow"><div>Output</div><div>A predicted label</div><div>Cluster assignments</div></div>
+      </div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>In one sentence, the core difference?</summary><div class="ans"><p><strong>KNN is supervised classification using labelled neighbours; K-Means is unsupervised clustering of unlabelled data</strong> — same "distance" intuition, opposite problems.</p></div></details>
+      <details><summary>Why is KNN called a "lazy learner"?</summary><div class="ans"><p>Because it does <strong>no real work at training time</strong> — it just memorizes the dataset. All computation is deferred to prediction, when it measures distances to find the nearest neighbours. K-Means, by contrast, is "eager": it computes cluster centroids during training.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- CMP: encoder vs decoder, GPT vs diffusion -->
+<article class="topic" id="arch-vs" data-lv="cmp" data-keys="encoder decoder bert gpt diffusion gan autoregressive difference architecture generation image vs comparison">
+  <header>
+    <div style="flex:1">
+      <span class="label">VS-05 · model families</span>
+      <h3>Encoder vs. Decoder · GPT vs. Diffusion</h3>
+    </div>
+    <span class="pill cmp">vs</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">Theory</div>
+    <div class="theory">
+      <p>Two model-family comparisons come up a lot. First, <strong>encoder vs decoder</strong> Transformers. <strong>Encoder-only</strong> models (e.g. BERT) read the whole input bidirectionally and are built for <em>understanding</em> tasks — classification, embeddings, search. <strong>Decoder-only</strong> models (e.g. GPT) generate text left-to-right and are built for <em>producing</em> text. (Encoder-decoder models like T5 do both, e.g. translation.)</p>
+      <p>Second, <strong>GPT-style vs diffusion</strong>. GPT-style models are <strong>autoregressive</strong> — they generate tokens one at a time, great for text. <strong>Diffusion</strong> models generate by starting from noise and <em>iteratively denoising</em> toward a result — the dominant approach for high-quality image and video generation.</p>
+    </div>
+    <div class="section-tab">Cheat sheet</div>
+    <div class="cmp-wrap">
+      <div class="cmp two">
+        <div class="crow chead"><div>aspect</div><div>GPT-style (autoregressive)</div><div>Diffusion</div></div>
+        <div class="crow"><div>How it generates</div><div>Next token, step by step</div><div>Denoise from random noise</div></div>
+        <div class="crow"><div>Best for</div><div>Text, code, chat</div><div>Images, audio, video</div></div>
+        <div class="crow"><div>Direction</div><div>Sequential, left-to-right</div><div>Iterative refinement</div></div>
+        <div class="crow"><div>Examples</div><div>GPT, Llama, Claude</div><div>Stable Diffusion, image gen</div></div>
+      </div>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>When would you pick an encoder-only model like BERT over GPT?</summary><div class="ans"><p>For <strong>understanding tasks</strong>, not generation: text classification, named-entity recognition, semantic search, or producing embeddings. Encoder models read the whole sequence bidirectionally, which suits comprehension. Use a <strong>decoder (GPT-style)</strong> when the job is to <em>generate</em> fluent text.</p></div></details>
+      <details><summary>Why are images usually made with diffusion, not autoregressive models?</summary><div class="ans"><p>Generating an image pixel-by-pixel autoregressively is slow and struggles with global coherence. <strong>Diffusion</strong> starts from noise and refines the <em>whole image</em> over many denoising steps, which produces high-quality, globally consistent results — and conditions naturally on a text prompt.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- ================= ON THE JOB ================= -->
+<div class="group-head"><span class="num">05</span><h2>On the Job</h2><span class="line"></span></div>
+<p class="group-sub">Senior loops aren't trivia — they're scenarios. Here's what real companies test, plus the "you're building X, now debug it" questions, drawn from current AI-engineer interview patterns.</p>
+
+<!-- PRAC: What companies ask -->
+<article class="topic" id="companies" data-lv="prac" data-keys="companies google amazon meta openai anthropic faang interview focus system design what they ask hiring roles seniority entry mid senior">
+  <header>
+    <div style="flex:1">
+      <span class="label">JOB-01 · field notes</span>
+      <h3>What Companies Actually Ask</h3>
+    </div>
+    <span class="pill prac">Practical</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">The landscape</div>
+    <div class="theory">
+      <p>Based on widely-reported 2025–2026 AI/LLM-engineer interview patterns, the focus has shifted from pure ML theory toward <strong>building and shipping</strong> with LLMs. RAG shows up almost everywhere, evaluation and production failures separate strong candidates, and agents + MCP are the current frontier. Roughly, expect this split by seniority and company type:</p>
+    </div>
+    <div class="fieldnote">
+      <div class="fn">
+        <div class="ft"><span>entry</span>Fundamentals</div>
+        <ul>
+          <li>Transformers, attention, embeddings</li>
+          <li>Supervised vs unsupervised, overfitting</li>
+          <li>What tokens / context windows are</li>
+          <li>Basic prompt engineering</li>
+          <li>Python; sometimes a coding screen</li>
+        </ul>
+      </div>
+      <div class="fn">
+        <div class="ft"><span>mid</span>Applied LLM</div>
+        <ul>
+          <li>Design a RAG pipeline end-to-end</li>
+          <li>Chunking, vector DBs, hybrid search</li>
+          <li>RAG vs fine-tuning trade-offs</li>
+          <li>Evaluating generative output</li>
+          <li>Hallucination mitigation</li>
+        </ul>
+      </div>
+      <div class="fn">
+        <div class="ft"><span>senior</span>Systems &amp; depth</div>
+        <ul>
+          <li>GenAI system design (45–60 min)</li>
+          <li>Cost &amp; token-budget reasoning</li>
+          <li>Latency vs throughput, quantization, KV cache</li>
+          <li>Incident response / production failures</li>
+          <li>Agents, MCP, multimodal, RLHF</li>
+        </ul>
+      </div>
+      <div class="fn">
+        <div class="ft"><span>frontier labs</span>OpenAI / Anthropic-style</div>
+        <ul>
+          <li>Refactor/optimize an existing real codebase</li>
+          <li>Scalable serving &amp; infra system design</li>
+          <li>A short technical project presentation</li>
+          <li>Safety, evals, responsible-AI reasoning</li>
+          <li>Deep trade-off discussion under follow-ups</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><b>Recruiter signal:</b> a small but real RAG or agent project on your GitHub beats memorizing question lists. Interviewers probe how you reason about trade-offs and how you'd debug failures — not whether you can recite definitions.</div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>What's the single most common LLM-engineering interview topic right now?</summary><div class="ans"><p><strong>RAG.</strong> Most production LLM apps use it, so expect to design a pipeline, justify chunking and retrieval choices (sparse vs dense, hybrid search), discuss productionizing it (scale, retrieval errors), and explain how you'd detect and reduce hallucinations within it.</p></div></details>
+      <details><summary>How do GenAI system-design interviews differ from classic system design?</summary><div class="ans"><p>You still scope requirements and components, but add LLM-specific concerns: <strong>how to integrate the model, structure prompts, manage the token/cost budget, choose RAG and a vector DB, ground outputs to avoid unsafe answers, and evaluate quality</strong> (often with an A/B framework or a feedback loop). Asking clarifying questions — data freshness, privacy, on-prem vs API — is part of the score.</p></div></details>
+    </div>
+  </div>
+</article>
+
+<!-- PRAC: scenarios -->
+<article class="topic" id="scenarios" data-lv="prac" data-keys="practical scenario debugging cost latency nondeterministic system design build chatbot reduce optimize production troubleshoot evaluate prompt injection">
+  <header>
+    <div style="flex:1">
+      <span class="label">JOB-02 · scenarios &amp; whiteboard</span>
+      <h3>Practical &amp; Scenario Questions</h3>
+    </div>
+    <span class="pill prac">Practical</span>
+  </header>
+  <div class="body">
+    <div class="section-tab">How to approach these</div>
+    <div class="theory">
+      <p>Scenario questions reward <strong>structured reasoning</strong>, not a memorized answer. Clarify the requirement, name the likely culprits or options, pick one with a trade-off justification, and say how you'd measure success. The Q&amp;A below models that shape.</p>
+    </div>
+    <div class="section-tab">Interview Q&amp;A</div>
+    <div class="qa">
+      <details><summary>Your RAG app returns irrelevant or wrong answers. How do you debug it?</summary><div class="ans"><p>Isolate <strong>retrieval vs generation</strong> first. Inspect what chunks were actually retrieved: if they're wrong, the problem is upstream — bad chunking (too big/small), weak embedding model, too-small top-k, or no relevant doc in the store. Fixes: better chunking with overlap, a stronger embedding model, hybrid (keyword + vector) search, and re-ranking. If the <em>right</em> context was retrieved but the answer is still wrong, look at the prompt, context ordering, and the model. Add evals so you can measure each fix.</p></div></details>
+      <details><summary>Your LLM feature is too expensive. How do you cut cost ~50%?</summary><div class="ans"><p>Attack tokens and model choice. <strong>Shorten prompts</strong> (trim few-shot examples, compress the system prompt), <strong>cap output length</strong>, and <strong>cache</strong> repeated calls. <strong>Route</strong> easy queries to a smaller/cheaper model and reserve the big model for hard ones. For self-hosted: <strong>quantize</strong> and <strong>batch</strong> requests. Retrieve fewer, better chunks so context is smaller. Measure cost per request before and after.</p></div></details>
+      <details><summary>Production latency is too high. What do you do?</summary><div class="ans"><p><strong>Stream</strong> the response so time-to-first-token feels fast. Use a <strong>smaller or distilled model</strong> where quality allows, enable the <strong>KV cache</strong> and request <strong>batching</strong>, and consider <strong>speculative decoding</strong>. Shrink the prompt and retrieved context (long context = slower). Cache frequent answers. Distinguish the two metrics: time-to-first-token vs total generation time, and optimize the one users feel.</p></div></details>
+      <details><summary>The model gives different answers each time. Is that a bug, and how do you fix it?</summary><div class="ans"><p>Usually expected: generation is <strong>stochastic</strong>. For reproducible, factual outputs, set <strong>temperature near 0</strong> (and fix the seed if the API supports it) so it picks the most probable tokens. For tasks needing variety (brainstorming), keep it higher. If you need consistency <em>and</em> structure, also constrain the output format (e.g. a JSON schema / structured outputs).</p></div></details>
+      <details><summary>Design a chatbot that answers questions over our internal company documents.</summary><div class="ans"><p>This is a <strong>RAG</strong> system. <strong>Offline:</strong> ingest docs → clean → chunk (with overlap) → embed → store in a vector DB. <strong>Online:</strong> embed the user's question → retrieve top-k (ideally hybrid search + re-ranking) → assemble a prompt with the chunks and instructions → generate a grounded answer <em>with citations</em>. Add guardrails (refuse when nothing relevant is retrieved), access control on private docs, an eval set, and logging/feedback to improve retrieval. Mention re-embedding cadence as docs change.</p></div></details>
+      <details><summary>How would you evaluate an LLM feature before launching?</summary><div class="ans"><p>Don't rely on vibes. Build a <strong>representative eval set</strong> with expected behaviours, score with a mix of <strong>automated metrics, an LLM-as-judge, and human review</strong> for high-stakes cases. Track task success, hallucination rate, latency, and cost. Run <strong>A/B tests</strong> on prompts and retrieval in production, and collect thumbs up/down to feed continuous improvement.</p></div></details>
+      <details><summary>A user tries to make your bot ignore its instructions. How do you defend it?</summary><div class="ans"><p>That's <strong>prompt injection</strong>. Treat all user and retrieved content as <strong>untrusted</strong>, keep trusted system instructions separated, and add input/output <strong>moderation</strong>. Give any tools <strong>least privilege</strong> and require approval for high-impact actions. Validate and sandbox tool calls, constrain outputs, and <strong>red-team</strong> continuously. Assume some attempts succeed and limit the blast radius rather than trusting the model to always refuse.</p></div></details>
+    </div>
+  </div>
+</article>
+
+      <div class="no-results" id="noResults">
+        <p class="mono">// no matches</p>
+        <p style="margin-top:8px">Nothing matched your search or filter. Try a broader term, or reset the filters.</p>
+      </div>
+
+    </div><!-- /content -->
+
+    <footer class="footer">
+      <div class="author">
+        <span class="by"><span>Created by</span>Deven Kalathiya</span>
+        <div class="links">
+          <a href="https://github.com/deven1003" target="_blank" rel="noopener" aria-label="GitHub profile">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            github.com/deven1003
+          </a>
+          <a href="https://www.linkedin.com/in/deven-kalathiya/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M13.63 0H2.37A2.34 2.34 0 000 2.31v11.38A2.34 2.34 0 002.37 16h11.26A2.34 2.34 0 0016 13.69V2.31A2.34 2.34 0 0013.63 0zM4.86 13.12H2.9V6.04h1.96v7.08zM3.88 5.16a1.14 1.14 0 110-2.28 1.14 1.14 0 010 2.28zm9.24 7.96h-1.96V9.5c0-.84-.02-1.93-1.18-1.93-1.18 0-1.36.92-1.36 1.87v3.68H6.66V6.04h1.88v.97h.03c.26-.5.9-1.02 1.86-1.02 1.99 0 2.36 1.31 2.36 3.01v4.12z"/></svg>
+            in/deven-kalathiya
+          </a>
+        </div>
+      </div>
+      <span class="mono">&copy; Deven Kalathiya · AI Interview Cheat Sheet · 34 topics</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  var content = document.getElementById('content');
+  var topics = Array.prototype.slice.call(content.querySelectorAll('.topic'));
+  var nav = document.getElementById('nav');
+  var search = document.getElementById('search');
+  var noResults = document.getElementById('noResults');
+  var filters = document.getElementById('filters');
+  var activeLevel = 'all';
+
+  var GROUPS = [
+    {key:'basic', cls:'g-basic', label:'01 · Foundations'},
+    {key:'inter', cls:'g-inter', label:'02 · Core Concepts'},
+    {key:'adv',   cls:'g-adv',   label:'03 · Advanced'},
+    {key:'cmp',   cls:'g-cmp',   label:'04 · Side-by-Side'},
+    {key:'prac',  cls:'g-prac',  label:'05 · On the Job'}
+  ];
+
+  // Build sidebar nav grouped by level
+  GROUPS.forEach(function(g){
+    var groupTopics = topics.filter(function(t){return t.dataset.lv===g.key;});
+    if(!groupTopics.length) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'nav-group '+g.cls;
+    wrap.dataset.lv = g.key;
+    var gh = document.createElement('div');
+    gh.className = 'gh';
+    gh.textContent = g.label;
+    wrap.appendChild(gh);
+    groupTopics.forEach(function(t){
+      var a = document.createElement('a');
+      a.href = '#'+t.id;
+      a.dataset.target = t.id;
+      a.dataset.lv = g.key;
+      a.textContent = t.querySelector('h3').textContent;
+      wrap.appendChild(a);
+    });
+    nav.appendChild(wrap);
+  });
+  var navLinks = Array.prototype.slice.call(nav.querySelectorAll('a'));
+
+  // Filtering (search + level)
+  function applyFilter(){
+    var q = (search.value||'').trim().toLowerCase();
+    var anyVisible = false;
+    topics.forEach(function(t){
+      var matchLevel = (activeLevel==='all') || (t.dataset.lv===activeLevel);
+      var hay = (t.dataset.keys||'') + ' ' + t.textContent.toLowerCase();
+      var matchSearch = !q || hay.indexOf(q) !== -1;
+      var show = matchLevel && matchSearch;
+      t.classList.toggle('hidden', !show);
+      if(show) anyVisible = true;
+    });
+    // sync nav links
+    navLinks.forEach(function(a){
+      var t = document.getElementById(a.dataset.target);
+      a.classList.toggle('hidden', t.classList.contains('hidden'));
+    });
+    // hide empty group headers
+    nav.querySelectorAll('.nav-group').forEach(function(grp){
+      var visible = grp.querySelectorAll('a:not(.hidden)').length;
+      grp.style.display = visible ? '' : 'none';
+    });
+    noResults.classList.toggle('show', !anyVisible);
+  }
+
+  search.addEventListener('input', applyFilter);
+
+  filters.addEventListener('click', function(e){
+    var btn = e.target.closest('.chip');
+    if(!btn) return;
+    activeLevel = btn.dataset.lv;
+    filters.querySelectorAll('.chip').forEach(function(c){
+      c.dataset.on = (c===btn) ? 'true' : 'false';
+    });
+    applyFilter();
+  });
+
+  // Scroll-spy: highlight active nav link
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        var id = en.target.id;
+        navLinks.forEach(function(a){
+          a.classList.toggle('active', a.dataset.target===id);
+        });
+      }
+    });
+  }, {rootMargin:'-15% 0px -70% 0px', threshold:0});
+  topics.forEach(function(t){spy.observe(t);});
+
+  // Mobile sidebar toggle
+  var sidebar = document.getElementById('sidebar');
+  var scrim = document.getElementById('scrim');
+  var mbToggle = document.getElementById('mb-toggle');
+  function closeNav(){sidebar.classList.remove('open');scrim.classList.remove('show');}
+  if(mbToggle){
+    mbToggle.addEventListener('click', function(){
+      sidebar.classList.toggle('open');
+      scrim.classList.toggle('show', sidebar.classList.contains('open'));
+    });
+  }
+  scrim.addEventListener('click', closeNav);
+  navLinks.forEach(function(a){a.addEventListener('click', function(){ if(window.innerWidth<=880) closeNav(); });});
+})();
+</script>
+</body>
+</html>
